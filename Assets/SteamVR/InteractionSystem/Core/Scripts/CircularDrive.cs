@@ -238,18 +238,17 @@ namespace Valve.VR.InteractionSystem
 			handHoverLocked = null;
 		}
 
-        private GrabTypes grabbedWithType;
+
 		//-------------------------------------------------
 		private void HandHoverUpdate( Hand hand )
         {
             GrabTypes startingGrabType = hand.GetGrabStarting();
-            bool isGrabEnding = hand.IsGrabbingWithType(grabbedWithType) == false;
+            bool isGrabEnding = hand.IsGrabEnding(this.gameObject);
 
-            if (grabbedWithType == GrabTypes.None && startingGrabType != GrabTypes.None)
+            if (startingGrabType != GrabTypes.None)
             {
-                grabbedWithType = startingGrabType;
-                // Trigger was just pressed
-                lastHandProjected = ComputeToTransformProjected( hand.hoverSphereTransform );
+				// Trigger was just pressed
+				lastHandProjected = ComputeToTransformProjected( hand.hoverSphereTransform );
 
 				if ( hoverLock )
 				{
@@ -264,7 +263,7 @@ namespace Valve.VR.InteractionSystem
 
                 hand.HideGrabHint();
 			}
-            else if (grabbedWithType != GrabTypes.None && isGrabEnding)
+			else if (isGrabEnding)
 			{
 				// Trigger was just released
 				if ( hoverLock )
@@ -272,12 +271,8 @@ namespace Valve.VR.InteractionSystem
 					hand.HoverUnlock(interactable);
 					handHoverLocked = null;
 				}
-
-                driving = false;
-                grabbedWithType = GrabTypes.None;
-            }
-
-            if ( driving && isGrabEnding == false && hand.hoveringInteractable == this.interactable )
+			}
+			else if ( driving && isGrabEnding == false && hand.hoveringInteractable == this.interactable )
 			{
 				ComputeAngle( hand );
 				UpdateAll();

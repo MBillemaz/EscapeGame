@@ -4,129 +4,89 @@ using System.Collections;
 using UnityEditor.Callbacks;
 using System.IO;
 
-namespace Valve.VR
+public class SteamVR_Input_PostProcessBuild
 {
-    public class SteamVR_Input_PostProcessBuild
+    [PostProcessBuildAttribute(1)]
+    public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject)
     {
-        [PostProcessBuildAttribute(1)]
-        public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject)
+        SteamVR_Input.InitializeFile();
+
+        FileInfo fileInfo = new FileInfo(pathToBuiltProject);
+        string buildPath = fileInfo.Directory.FullName;
+
+        string[] files = SteamVR_Input.actionFile.GetFilesToCopy();
+
+        bool overwrite = EditorPrefs.GetBool(SteamVR_Input_Generator.steamVRInputOverwriteBuildKey);
+
+        foreach (string file in files)
         {
-            SteamVR_Input.InitializeFile();
+            FileInfo bindingInfo = new FileInfo(file);
+            string newFilePath = Path.Combine(buildPath, bindingInfo.Name);
 
-            FileInfo fileInfo = new FileInfo(pathToBuiltProject);
-            string buildPath = fileInfo.Directory.FullName;
+            bool exists = false;
+            if (File.Exists(newFilePath))
+                exists = true;
 
-            string[] files = SteamVR_Input.actionFile.GetFilesToCopy();
-
-            bool overwrite = EditorPrefs.GetBool(SteamVR_Input_Generator.steamVRInputOverwriteBuildKey);
-
-            foreach (string file in files)
+            if (exists)
             {
-                FileInfo bindingInfo = new FileInfo(file);
-                string newFilePath = Path.Combine(buildPath, bindingInfo.Name);
-
-                bool exists = false;
-                if (File.Exists(newFilePath))
-                    exists = true;
-
-                if (exists)
+                if (overwrite)
                 {
-                    if (overwrite)
-                    {
-                        FileInfo existingFile = new FileInfo(newFilePath);
-                        existingFile.IsReadOnly = false;
-                        existingFile.Delete();
+                    FileInfo existingFile = new FileInfo(newFilePath);
+                    existingFile.IsReadOnly = false;
+                    existingFile.Delete();
 
-                        File.Copy(file, newFilePath);
+                    File.Copy(file, newFilePath);
 
-                        //UpdateAppKey(newFilePath, fileInfo.Name);
-                        RemoveAppKey(newFilePath, fileInfo.Name);
+                    UpdateAppKey(newFilePath, fileInfo.Name);
 
-                        Debug.Log("[SteamVR] Copied (overwrote) SteamVR Input file at build path: " + newFilePath);
-                    }
-                    else
-                    {
-                        Debug.Log("[SteamVR] Skipped writing existing file at build path: " + newFilePath);
-                    }
+                    Debug.Log("[SteamVR] Copied (overwrote) SteamVR Input file at build path: " + newFilePath);
                 }
                 else
                 {
-                    File.Copy(file, newFilePath);
-                    //UpdateAppKey(newFilePath, fileInfo.Name);
-                    RemoveAppKey(newFilePath, fileInfo.Name);
-
-                    Debug.Log("[SteamVR] Copied SteamVR Input file to build folder: " + newFilePath);
-                }
-
-            }
-        }
-
-        private static void UpdateAppKey(string newFilePath, string executableName)
-        {
-            if (File.Exists(newFilePath))
-            {
-                string jsonText = System.IO.File.ReadAllText(newFilePath);
-
-                string findString = "\"app_key\" : \"";
-                int stringStart = jsonText.IndexOf(findString);
-
-                if (stringStart == -1)
-                {
-                    findString = findString.Replace(" ", "");
-                    stringStart = jsonText.IndexOf(findString);
-
-                    if (stringStart == -1)
-                        return; //no app key
-                }
-
-                stringStart += findString.Length;
-                int stringEnd = jsonText.IndexOf("\"", stringStart);
-
-                int stringLength = stringEnd - stringStart;
-
-                string currentAppKey = jsonText.Substring(stringStart, stringLength);
-
-                if (string.Equals(currentAppKey, SteamVR_Settings.instance.editorAppKey, System.StringComparison.CurrentCultureIgnoreCase) == false)
-                {
-                    jsonText = jsonText.Replace(currentAppKey, SteamVR_Settings.instance.editorAppKey);
-
-                    FileInfo file = new FileInfo(newFilePath);
-                    file.IsReadOnly = false;
-
-                    File.WriteAllText(newFilePath, jsonText);
+                    Debug.Log("[SteamVR] Skipped writing existing file at build path: " + newFilePath);
                 }
             }
-        }
-
-        private const string findString_appKeyStart = "\"app_key\"";
-        private const string findString_appKeyEnd = "\",";
-        private static void RemoveAppKey(string newFilePath, string executableName)
-        {
-            if (File.Exists(newFilePath))
+            else
             {
-                string jsonText = System.IO.File.ReadAllText(newFilePath);
+                File.Copy(file, newFilePath);
+                UpdateAppKey(newFilePath, fileInfo.Name);
 
-                string findString = "\"app_key\"";
-                int stringStart = jsonText.IndexOf(findString);
+                Debug.Log("[SteamVR] Copied SteamVR Input file to build folder: " + newFilePath);
+            }
+
+        }
+    }
+
+    private static void UpdateAppKey(string newFilePath, string executableName)
+    {
+        if (File.Exists(newFilePath))
+        {
+            string jsonText = System.IO.File.ReadAllText(newFilePath);
+
+            string findString = "\"app_key\" : \"";
+            int stringStart = jsonText.IndexOf(findString);
+
+            if (stringStart == -1)
+            {
+                findString = findString.Replace(" ", "");
+                stringStart = jsonText.IndexOf(findString);
 
                 if (stringStart == -1)
                     return; //no app key
+            }
 
-                int stringEnd = jsonText.IndexOf("\",", stringStart);
+            stringStart += findString.Length;
+            int stringEnd = jsonText.IndexOf("\"", stringStart);
 
-                if (stringEnd == -1)
-                    return; //no end?
+            int stringLength = stringEnd - stringStart;
 
-                stringEnd += findString_appKeyEnd.Length;
+            string appKey = jsonText.Substring(stringStart, stringLength);
 
-                int stringLength = stringEnd - stringStart;
+            if (string.Equals(appKey, SteamVR_Settings.instance.appKey, System.StringComparison.CurrentCultureIgnoreCase) == false)
+            {
+                jsonText = jsonText.Replace(appKey, SteamVR_Settings.instance.appKey);
 
-                string newJsonText = jsonText.Remove(stringStart, stringLength);
-
-                FileInfo file = new FileInfo(newFilePath);
-                file.IsReadOnly = false;
-
-                File.WriteAllText(newFilePath, newJsonText);
+                File.WriteAllText(newFilePath, jsonText);
             }
         }
     }

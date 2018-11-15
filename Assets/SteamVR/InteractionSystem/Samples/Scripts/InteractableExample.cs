@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Valve.VR.InteractionSystem.Sample
+namespace Valve.VR.InteractionSystem
 {
 	//-------------------------------------------------------------------------
 	[RequireComponent( typeof( Interactable ) )]
@@ -59,7 +59,7 @@ namespace Valve.VR.InteractionSystem.Sample
             GrabTypes startingGrabType = hand.GetGrabStarting();
             bool isGrabEnding = hand.IsGrabEnding(this.gameObject);
 
-            if (interactable.attachedToHand == null && startingGrabType != GrabTypes.None)
+            if (startingGrabType != GrabTypes.None)
             {
                 // Save our position/rotation so that we can restore it when we detach
                 oldPosition = transform.position;

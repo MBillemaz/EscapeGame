@@ -37,7 +37,6 @@ namespace Valve.VR.InteractionSystem
 
             renderModel = renderModelGameObject.GetComponent<RenderModel>();
 
-            renderModel.SetInputSource(hand.handType);
             renderModel.OnHandInitialized(deviceIndex);
             renderModel.SetMaterial(highLightMaterial);
 

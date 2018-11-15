@@ -20,25 +20,28 @@ namespace Valve.VR.InteractionSystem
 		public bool maintainMomemntum = true;
 		public float momemtumDampenRate = 5.0f;
 
-        protected Hand.AttachmentFlags attachmentFlags = Hand.AttachmentFlags.DetachFromOtherHand;
+        private Hand.AttachmentFlags attachmentFlags = Hand.AttachmentFlags.DetachFromOtherHand;
 
-        protected float initialMappingOffset;
-        protected int numMappingChangeSamples = 5;
-        protected float[] mappingChangeSamples;
-        protected float prevMapping = 0.0f;
-        protected float mappingChangeRate;
-        protected int sampleCount = 0;
+        private float initialMappingOffset;
+		private int numMappingChangeSamples = 5;
+		private float[] mappingChangeSamples;
+		private float prevMapping = 0.0f;
+		private float mappingChangeRate;
+		private int sampleCount = 0;
 
-        protected Interactable interactable;
+        private Interactable interactable;
 
 
-        protected virtual void Awake()
+        //-------------------------------------------------
+        void Awake()
         {
             mappingChangeSamples = new float[numMappingChangeSamples];
-            interactable = GetComponent<Interactable>();
+            interactable = this.GetComponent<Interactable>();
         }
 
-        protected virtual void Start()
+
+		//-------------------------------------------------
+		void Start()
 		{
 			if ( linearMapping == null )
 			{
@@ -58,37 +61,42 @@ namespace Valve.VR.InteractionSystem
 			}
 		}
 
-        protected virtual void HandHoverUpdate( Hand hand )
+
+		//-------------------------------------------------
+		private void HandHoverUpdate( Hand hand )
         {
             GrabTypes startingGrabType = hand.GetGrabStarting();
+            bool isGrabEnding = hand.IsGrabEnding(this.gameObject);
 
-            if (interactable.attachedToHand == null && startingGrabType != GrabTypes.None)
+            if (startingGrabType != GrabTypes.None)
             {
+                hand.HoverLock(interactable);
+
                 initialMappingOffset = linearMapping.value - CalculateLinearMapping( hand.transform );
 				sampleCount = 0;
 				mappingChangeRate = 0.0f;
 
                 hand.AttachObject(gameObject, startingGrabType, attachmentFlags);
             }
+
+			if ( isGrabEnding )
+			{
+				hand.HoverUnlock(interactable);
+
+                hand.DetachObject(gameObject);
+
+                CalculateMappingChangeRate();
+			}
+
+			if ( hand.currentAttachedObject == interactable.gameObject )
+			{
+				UpdateLinearMapping( hand.transform );
+			}
 		}
 
-        protected virtual void HandAttachedUpdate(Hand hand)
-        {
-            UpdateLinearMapping(hand.transform);
 
-            if (hand.IsGrabEnding(this.gameObject))
-            {
-                hand.DetachObject(gameObject);
-            }
-        }
-
-        protected virtual void OnDetachedFromHand(Hand hand)
-        {
-            CalculateMappingChangeRate();
-        }
-
-
-        protected void CalculateMappingChangeRate()
+		//-------------------------------------------------
+		private void CalculateMappingChangeRate()
 		{
 			//Compute the mapping change rate
 			mappingChangeRate = 0.0f;
@@ -103,10 +111,12 @@ namespace Valve.VR.InteractionSystem
 			}
 		}
 
-        protected void UpdateLinearMapping( Transform updateTransform )
+
+		//-------------------------------------------------
+		private void UpdateLinearMapping( Transform tr )
 		{
 			prevMapping = linearMapping.value;
-			linearMapping.value = Mathf.Clamp01( initialMappingOffset + CalculateLinearMapping( updateTransform ) );
+			linearMapping.value = Mathf.Clamp01( initialMappingOffset + CalculateLinearMapping( tr ) );
 
 			mappingChangeSamples[sampleCount % mappingChangeSamples.Length] = ( 1.0f / Time.deltaTime ) * ( linearMapping.value - prevMapping );
 			sampleCount++;
@@ -117,21 +127,24 @@ namespace Valve.VR.InteractionSystem
 			}
 		}
 
-        protected float CalculateLinearMapping( Transform updateTransform )
+
+		//-------------------------------------------------
+		private float CalculateLinearMapping( Transform tr )
 		{
 			Vector3 direction = endPosition.position - startPosition.position;
 			float length = direction.magnitude;
 			direction.Normalize();
 
-			Vector3 displacement = updateTransform.position - startPosition.position;
+			Vector3 displacement = tr.position - startPosition.position;
 
 			return Vector3.Dot( displacement, direction ) / length;
 		}
 
-        
-		protected virtual void Update()
-        {
-            if ( maintainMomemntum && mappingChangeRate != 0.0f )
+
+		//-------------------------------------------------
+		void Update()
+		{
+			if ( maintainMomemntum && mappingChangeRate != 0.0f )
 			{
 				//Dampen the mapping change rate and apply it to the mapping
 				mappingChangeRate = Mathf.Lerp( mappingChangeRate, 0.0f, momemtumDampenRate * Time.deltaTime );

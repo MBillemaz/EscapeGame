@@ -13,7 +13,7 @@ namespace Valve.VR.InteractionSystem
 	//-------------------------------------------------------------------------
 	[RequireComponent( typeof( Interactable ) )]
 	[RequireComponent( typeof( Rigidbody ) )]
-    [RequireComponent( typeof(VelocityEstimator))]
+	[RequireComponent( typeof( VelocityEstimator ) )]
 	public class Throwable : MonoBehaviour
 	{
 		[EnumFlags]
@@ -26,7 +26,7 @@ namespace Valve.VR.InteractionSystem
 		[Tooltip( "How fast must this object be moving to attach due to a trigger hold instead of a trigger press? (-1 to disable)" )]
         public float catchingSpeedThreshold = -1;
 
-        public ReleaseStyle releaseVelocityStyle = ReleaseStyle.GetFromHand;
+        public ReleaseStyle releaseVelocityStyle = ReleaseStyle.RawFromHand;
 
         [Tooltip("The time offset used when releasing the object with the RawFromHand option")]
         public float releaseVelocityTimeOffset = -0.011f;
@@ -188,15 +188,27 @@ namespace Valve.VR.InteractionSystem
         {
             switch (releaseVelocityStyle)
             {
-                case ReleaseStyle.ShortEstimation:
+                case ReleaseStyle.OldControllerStyle:
+                    velocity = hand.GetOldControllerVelocity();
+                    angularVelocity = hand.GetOldControllerAngularVelocity();
+                    break;
+                case ReleaseStyle.EstimatedOnObject:
+                    Vector3 position = Vector3.zero;
+                    velocity = Vector3.zero;
+                    angularVelocity = Vector3.zero;
+
                     velocityEstimator.FinishEstimatingVelocity();
                     velocity = velocityEstimator.GetVelocityEstimate();
                     angularVelocity = velocityEstimator.GetAngularVelocityEstimate();
+                    position = velocityEstimator.transform.position;
+
+                    Vector3 r = transform.TransformPoint(rigidbody.centerOfMass) - position;
+                    velocity = velocity + Vector3.Cross(angularVelocity, r);
                     break;
-                case ReleaseStyle.AdvancedEstimation:
+                case ReleaseStyle.EstimatedOnHand:
                     hand.GetEstimatedPeakVelocities(out velocity, out angularVelocity);
                     break;
-                case ReleaseStyle.GetFromHand:
+                case ReleaseStyle.RawFromHand:
                     velocity = hand.GetTrackedObjectVelocity(releaseVelocityTimeOffset);
                     angularVelocity = hand.GetTrackedObjectAngularVelocity(releaseVelocityTimeOffset);
                     break;
@@ -212,37 +224,36 @@ namespace Valve.VR.InteractionSystem
         }
 
         //-------------------------------------------------
-        protected virtual void HandAttachedUpdate(Hand hand)
-        {
-            if (attachEaseIn)
-            {
-                float t = Util.RemapNumberClamped(Time.time, attachTime, attachTime + snapAttachEaseInTime, 0.0f, 1.0f);
-                if (t < 1.0f)
-                {
-                    t = snapAttachEaseInCurve.Evaluate(t);
-                    transform.position = Vector3.Lerp(attachPosition, attachEaseInTransform.position, t);
-                    transform.rotation = Quaternion.Lerp(attachRotation, attachEaseInTransform.rotation, t);
-                }
-                else if (!snapAttachEaseInCompleted)
-                {
-                    gameObject.SendMessage("OnThrowableAttachEaseInCompleted", hand, SendMessageOptions.DontRequireReceiver);
-                    snapAttachEaseInCompleted = true;
-                }
-            }
+        protected virtual void HandAttachedUpdate( Hand hand )
+		{
+			if ( hand.IsGrabEnding(this.gameObject) )
+			{
 
-            if (hand.IsGrabEnding(this.gameObject))
-            {
-                hand.DetachObject(gameObject, restoreOriginalParent);
+				// Detach ourselves late in the frame.
+				// This is so that any vehicles the player is attached to
+				// have a chance to finish updating themselves.
+				// If we detach now, our position could be behind what it
+				// will be at the end of the frame, and the object may appear
+				// to teleport behind the hand when the player releases it.
+				StartCoroutine( LateDetach( hand ) );
+			}
 
-                // Uncomment to detach ourselves late in the frame.
-                // This is so that any vehicles the player is attached to
-                // have a chance to finish updating themselves.
-                // If we detach now, our position could be behind what it
-                // will be at the end of the frame, and the object may appear
-                // to teleport behind the hand when the player releases it.
-                //StartCoroutine( LateDetach( hand ) );
-            }
-        }
+			if ( attachEaseIn )
+			{
+				float t = Util.RemapNumberClamped( Time.time, attachTime, attachTime + snapAttachEaseInTime, 0.0f, 1.0f );
+				if ( t < 1.0f )
+				{
+					t = snapAttachEaseInCurve.Evaluate( t );
+					transform.position = Vector3.Lerp( attachPosition, attachEaseInTransform.position, t );
+					transform.rotation = Quaternion.Lerp( attachRotation, attachEaseInTransform.rotation, t );
+				}
+				else if ( !snapAttachEaseInCompleted )
+				{
+					gameObject.SendMessage( "OnThrowableAttachEaseInCompleted", hand, SendMessageOptions.DontRequireReceiver );
+					snapAttachEaseInCompleted = true;
+				}
+			}
+		}
 
 
         //-------------------------------------------------
@@ -273,8 +284,9 @@ namespace Valve.VR.InteractionSystem
     public enum ReleaseStyle
     {
         NoChange,
-        GetFromHand,
-        ShortEstimation,
-        AdvancedEstimation,
+        OldControllerStyle,
+        EstimatedOnObject,
+        EstimatedOnHand,
+        RawFromHand,
     }
 }

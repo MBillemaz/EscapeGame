@@ -1,13 +1,8 @@
-﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-namespace Valve.VR.InteractionSystem.Sample
+public class RenderModelHolder : MonoBehaviour
 {
-    public class RenderModelHolder : MonoBehaviour
-    {
-        public GameObject leftPrefab;
-        public GameObject rightPrefab;
-    }
+     public GameObject leftPrefab;
+     public GameObject rightPrefab;
 }
