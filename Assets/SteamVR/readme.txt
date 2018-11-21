@@ -1,172 +1,10 @@
-SteamVR plugin for Unity - v1.3b10
+SteamVR plugin for Unity - v1.2.3
 Copyright (c) Valve Corporation, All rights reserved.
 
 
 Requirements:
 
 The SteamVR runtime must be installed.  This can be found in Steam under Tools.
-
-Changes for v1.3b10:
-
- * Fixed a couple issues that would cause tracking jitter or entire loss of input
-
- * Fixed an issue with destroying held objects
-
-
-Changes for v1.3b09:
-
- * Newly created action sets default to "single" mode allowing action mirroring in the binding UI.
-
- * Added an example of blending unity animations with the skeleton input system. The sphere on the Equippable table can be grabbed and the hand will blend to an animation.
-
- * Interactables now hand a hideHandOnAttach bool, a handAnimationOnPickup int that triggers an Animator.SetInt, and setRangeOfMotionOnPickup which will temporarily set the range of motion while an object is attached.
-
- * Added a tool example for "With Controller" hand animation examples. Equippables can also be flipped depending on the hand that picks them up.
-
- * Interactables now can tell hands to snap to them on attach. Specify a transform to snap to in Interactable.handFollowTransform and then check handFollowTransformPosition and/or handFollowTransformRotation
-
- * Added Range of Motion blending to skeleton - Hand.SetSkeletonRangeOfMotion(rangeOfMotion, blendTime)
-
- * Updated skeleton system to account for coordinate system changes
-
- * Fixed some perf issues with the old render models (WIP)
-
- * Fixed some bugs with button hints (WIP)
-
- * Interactables should now auto detach on destroy.
-
- * Added slim glove models, an example of an alien hand with 3 fingers, and an alien hand with floppy fingers
-
- * Hands now initialize a RenderModel object which can contain a hand and a controller. These can be toggled on and off separately
-
- * Fixed issue with controller highlighters not initializing correctly
-
- * Added the ability to attach an object to a specific offset from the Hand - Hand.ObjectAttachmentPoint
-
- * Fixed issue where render model would not show after bringing up compositor
-
- * Fixed issue with default Throwables. HoverButton now works in local space
-
- * Fixed issue with velocities and angular velocities not transforming properly
-
-
-Changes for v1.3b08:
-
-* SteamVR_Input_References has been moved to the generated folder so new plugin updates don't wipe yours. Prior beta users: Please delete your existing one in Assets/SteamVR/Resources/SteamVR_Input_References.asset
-
-* SteamVR_Input is no longer a MonoBehaviour. This fixes scene transition issues as well as event subscription issues.
-
-* The Live Action View has been moved to its own window under the Window menu.
-
-* Some excess configuration options were removed from the settings window, some were moved into SteamVR_Settings if still needed.
-
-* Added a Hover Button that depresses when the controller gets close to it.
-
-* Fixed an issue where default throwables would "auto catch" objects
-
-
-Changes for v1.3b07:
-
-* Fixed issue with upgrading from the legacy system
-
-* Fixed some line endings
-
-* Fixed generation bug where it wouldn't reopen to the scene you started on
-
-* Auto replacing app key in binding files
-
-* Updating actions and bindings to have one pose and one haptic action
-
-* Gave each app its own app id via a vrmanifest that is generated on import. Can be modified in SteamVR_Settings for release.
-
-* Fixed haptic actions not displaying in play mode
-
-* Temporary fix for skeletons erroring while the dashboard is up
-
-
-Changes for v1.3b06:
-
-* Added some flower and planting stuff for the tutorial
-
-* Updating knuckles actions and binding jsons
-
-* Added code solution for blending skeleton animations to mechanim, no example yet though
-
-* Updated some helper components to utilize Unity Events properly
-
-* Updated skeleton hierarchy
-
-
-Changes for v1.3b05:
-
-* Added a knuckles binding for the Grab mode
-
-* Fixed some bugs around skeleton updates and GC alloc
-
-* Fixed a pretty significant perf hit
-
-* Added a blending option to skeletons
-
-* Added some ui to try out skeleton options
-
-* Added a target for the throwing examples
-
-* Updated longbow to only fire arrows with the pinch action
-
-* Updated other interactable examples
-
-* Added some helper methods to hand around showing / hiding controller or the whole hand.
-
-* Fixed some of the throwing examples
-
-
-Changes for v1.3b04:
-
-* Added some more extensive velocity and angular velocity estimation based on positions and rotations per frame. Normalizing for time between frames.
-
-* Cleaned out and updated the actions + bindings for knuckles/wands/touch.
-
-* Fixed a bug with newly created actions not having a set type
-
-* Updated extra scenes to use the new input system
-
-
-Changes for v1.3b03:
-
-* Fixed some warnings for unity 2017 / 2018.
-
-* Fixed some editor UI issues for 2018
-
-* Fixed issues with Unity 2017+ not wanting to open scenes from a script reloaded callback
-
-
-Changes for v1.3b02:
-
-* Added DefaultInputAction attribute to automatically assign actions during action generation.
-
-* Updated default CameraRig prefab to use the new input system and components
-
-
-Changes for v1.3b01:
-
-* Integrated SteamVR Input System.
-https://steamcommunity.com/games/250820/announcements/detail/3809361199426010680
-
-* [InteractionSystem] Added basic examples of the Skeletal API
-
-* [InteractionSystem] Integrated SteamVR Input System. Actions and Action Sets instead of buttons.
-
-* [InteractionSystem] Added Velocity style object interaction
-
-* [InteractionSystem] Fixed some issues from github. Took some pull requests.
-https://github.com/ValveSoftware/steamvr_unity_plugin/pull/79
-https://github.com/ValveSoftware/steamvr_unity_plugin/pull/73
-https://github.com/ValveSoftware/steamvr_unity_plugin/pull/72
-https://github.com/ValveSoftware/steamvr_unity_plugin/pull/71
-https://github.com/ValveSoftware/steamvr_unity_plugin/pull/67
-https://github.com/ValveSoftware/steamvr_unity_plugin/pull/64
-https://github.com/ValveSoftware/steamvr_unity_plugin/issues/84
-https://github.com/ValveSoftware/steamvr_unity_plugin/issues/78
 
 
 Changes for v1.2.3:
@@ -181,7 +19,7 @@ Changes for v1.2.3:
 
 * [RenderModels] Switched from using TextureFormat.ARGB32 to RGBA32 to fix pink texture issue on Vulkan.
 
-* [RenderModels] Fix for not initializing properly if game is paused on startup.
+* [RenderModels] Fix for not initializing propery if game is paused on startup.
 https://github.com/ValveSoftware/steamvr_unity_plugin/issues/62
 
 * [InteractionSystem] Added implemention for ItemPackageSpawner requireTriggerPressToReturn.

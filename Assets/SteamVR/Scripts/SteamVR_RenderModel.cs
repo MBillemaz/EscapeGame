@@ -150,13 +150,14 @@ public class SteamVR_RenderModel : MonoBehaviour
 		var s = buffer.ToString();
 		if (renderModelName != s)
 		{
+			renderModelName = s;
 			StartCoroutine(SetModelAsync(s));
 		}
 	}
 
-	IEnumerator SetModelAsync(string newRenderModelName)
+	IEnumerator SetModelAsync(string renderModelName)
 	{
-		if (string.IsNullOrEmpty(newRenderModelName))
+		if (string.IsNullOrEmpty(renderModelName))
 			yield break;
 
 		// Preload all render models before asking for the data to create meshes.
@@ -169,27 +170,27 @@ public class SteamVR_RenderModel : MonoBehaviour
 			// Gather names of render models to preload.
 			string[] renderModelNames;
 
-			var count = renderModels.GetComponentCount(newRenderModelName);
+			var count = renderModels.GetComponentCount(renderModelName);
 			if (count > 0)
 			{
 				renderModelNames = new string[count];
 
 				for (int i = 0; i < count; i++)
 				{
-					var capacity = renderModels.GetComponentName(newRenderModelName, (uint)i, null, 0);
+					var capacity = renderModels.GetComponentName(renderModelName, (uint)i, null, 0);
 					if (capacity == 0)
 						continue;
 
 					var componentName = new System.Text.StringBuilder((int)capacity);
-					if (renderModels.GetComponentName(newRenderModelName, (uint)i, componentName, capacity) == 0)
+					if (renderModels.GetComponentName(renderModelName, (uint)i, componentName, capacity) == 0)
 						continue;
 
-					capacity = renderModels.GetComponentRenderModelName(newRenderModelName, componentName.ToString(), null, 0);
+					capacity = renderModels.GetComponentRenderModelName(renderModelName, componentName.ToString(), null, 0);
 					if (capacity == 0)
 						continue;
 
 					var name = new System.Text.StringBuilder((int)capacity);
-					if (renderModels.GetComponentRenderModelName(newRenderModelName, componentName.ToString(), name, capacity) == 0)
+					if (renderModels.GetComponentRenderModelName(renderModelName, componentName.ToString(), name, capacity) == 0)
 						continue;
 
 					var s = name.ToString();
@@ -205,10 +206,10 @@ public class SteamVR_RenderModel : MonoBehaviour
 			else
 			{
 				// Only need to preload if not already cached.
-				var model = models[newRenderModelName] as RenderModel;
+				var model = models[renderModelName] as RenderModel;
 				if (model == null || model.mesh == null)
 				{
-					renderModelNames = new string[] { newRenderModelName };
+					renderModelNames = new string[] { renderModelName };
 				}
 				else
 				{
@@ -228,8 +229,6 @@ public class SteamVR_RenderModel : MonoBehaviour
 					var pRenderModel = System.IntPtr.Zero;
 
 					var error = renderModels.LoadRenderModel_Async(name, ref pRenderModel);
-                    //Debug.Log("renderModels.LoadRenderModel_Async(" + name + ": " + error.ToString());
-
                     if (error == EVRRenderModelError.Loading)
 					{
 						loading = true;
@@ -246,9 +245,7 @@ public class SteamVR_RenderModel : MonoBehaviour
 							var pDiffuseTexture = System.IntPtr.Zero;
 
 							error = renderModels.LoadTexture_Async(renderModel.diffuseTextureId, ref pDiffuseTexture);
-                            //Debug.Log("renderModels.LoadRenderModel_Async(" + name + ": " + error.ToString());
-
-                            if (error == EVRRenderModelError.Loading)
+							if (error == EVRRenderModelError.Loading)
 							{
 								loading = true;
 							}
@@ -267,8 +264,7 @@ public class SteamVR_RenderModel : MonoBehaviour
 			}
 		}
 
-		bool success = SetModel(newRenderModelName);
-        this.renderModelName = newRenderModelName;
+		bool success = SetModel(renderModelName);
 		SteamVR_Events.RenderModelLoaded.Send(this, success);
 	}
 
@@ -282,7 +278,7 @@ public class SteamVR_RenderModel : MonoBehaviour
 			{
 				if (LoadComponents(holder, renderModelName))
 				{
-					//UpdateComponents(holder.instance); //todo: WIP
+					UpdateComponents(holder.instance);
 					return true;
 				}
 
@@ -442,7 +438,7 @@ public class SteamVR_RenderModel : MonoBehaviour
 			}
 			else
 			{
-				Debug.Log("Failed to load render model texture for render model " + renderModelName + ". Error: " + error.ToString());
+				Debug.Log("Failed to load render model texture for render model " + renderModelName);
 			}
 		}
 
@@ -687,8 +683,8 @@ public class SteamVR_RenderModel : MonoBehaviour
 		}
 #endif
 		// Update component transforms dynamically.
-		//if (updateDynamically)
-			//UpdateComponents(OpenVR.RenderModels); //todo: WIP
+		if (updateDynamically)
+			UpdateComponents(OpenVR.RenderModels);
 	}
 
 	Dictionary<int, string> nameCache;
@@ -723,15 +719,17 @@ public class SteamVR_RenderModel : MonoBehaviour
 			var componentState = new RenderModel_ComponentState_t();
             if (!renderModels.GetComponentState(renderModelName, name, ref controllerState, ref controllerModeState, ref componentState))
 				continue;
-            
-            child.localPosition = SteamVR_Utils.GetPosition(componentState.mTrackingToComponentRenderModel);
-			child.localRotation = SteamVR_Utils.GetRotation(componentState.mTrackingToComponentRenderModel);
+
+			var componentTransform = new SteamVR_Utils.RigidTransform(componentState.mTrackingToComponentRenderModel);
+			child.localPosition = componentTransform.pos;
+			child.localRotation = componentTransform.rot;
 
 			var attach = child.Find(k_localTransformName);
 			if (attach != null)
 			{
-                attach.position = t.TransformPoint(SteamVR_Utils.GetPosition(componentState.mTrackingToComponentLocal));
-				attach.rotation = t.rotation * SteamVR_Utils.GetRotation(componentState.mTrackingToComponentLocal);
+				var attachTransform = new SteamVR_Utils.RigidTransform(componentState.mTrackingToComponentLocal);
+				attach.position = t.TransformPoint(attachTransform.pos);
+				attach.rotation = t.rotation * attachTransform.rot;
 			}
 
 			bool visible = (componentState.uProperties & (uint)EVRComponentProperty.IsVisible) != 0;

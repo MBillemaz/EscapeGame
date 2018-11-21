@@ -9,13 +9,6 @@ using System.Collections;
 using System.Reflection;
 using Valve.VR;
 
-#if UNITY_2017_2_OR_NEWER
-    using UnityEngine.XR;
-#else
-using XRSettings = UnityEngine.VR.VRSettings;
-using XRDevice = UnityEngine.VR.VRDevice;
-#endif
-
 [RequireComponent(typeof(Camera))]
 public class SteamVR_Camera : MonoBehaviour
 {
@@ -38,23 +31,15 @@ public class SteamVR_Camera : MonoBehaviour
 
 	public bool wireframe = false;
 
-#if UNITY_2017_2_OR_NEWER
-    static public float sceneResolutionScale
-    {
-        get { return XRSettings.eyeTextureResolutionScale; }
-        set { XRSettings.eyeTextureResolutionScale = value; }
-    }
-#else
-    static public float sceneResolutionScale
-    {
-        get { return XRSettings.renderScale; }
-        set { XRSettings.renderScale = value; }
-    }
-#endif
+	static public float sceneResolutionScale
+	{
+		get { return UnityEngine.XR.XRSettings.eyeTextureResolutionScale; }
+		set { UnityEngine.XR.XRSettings.eyeTextureResolutionScale = value; }
+	}
 
-    #region Enable / Disable
+	#region Enable / Disable
 
-    void OnDisable()
+	void OnDisable()
 	{
 		SteamVR_Render.Remove(this);
 	}
