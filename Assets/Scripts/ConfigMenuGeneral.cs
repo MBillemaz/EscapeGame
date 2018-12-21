@@ -3,7 +3,7 @@ namespace DefaultNamespace
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using VRTK;
+    //using VRTK;
     using UnityEngine.SceneManagement;
 
     public class ConfigRadialMenu : MonoBehaviour
@@ -11,17 +11,17 @@ namespace DefaultNamespace
         private string name;
         private string sceneName;
         
-        public VRTK_SnapDropZone dropZone;
+       // public VRTK_SnapDropZone dropZone;
 
-        private void OnChangeScene()
-        {
-            GameObject item = dropZone.GetCurrentSnappedObject();
-            if (item.name == name)
-            {
-                StartCoroutine("ChangeScene", sceneName);
+        //private void OnChangeScene()
+        //{
+        //    GameObject item = dropZone.GetCurrentSnappedObject();
+        //    if (item.name == name)
+        //    {
+        //        StartCoroutine("ChangeScene", sceneName);
             
-            }
-        }
+        //    }
+        //}
         
         IEnumerator ChangeScene(string scene)
         {

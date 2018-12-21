@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using VRTK;
 
 public class ChangeScene : MonoBehaviour {
 
@@ -17,14 +16,14 @@ public class ChangeScene : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        var controller = VRTK_DeviceFinder.GetControllerRightHand().GetComponent<VRTK.VRTK_ControllerEvents>();
+	//void Update () {
+ //       var controller = VRTK_DeviceFinder.GetControllerRightHand().GetComponent<VRTK.VRTK_ControllerEvents>();
 
-        if (controller.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress)){
-            StopCoroutine(coroutine);
-            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-        }
-	}
+ //       if (controller.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress)){
+ //           StopCoroutine(coroutine);
+ //           SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+ //       }
+	//}
 
     IEnumerator WaitForScene()
     {
