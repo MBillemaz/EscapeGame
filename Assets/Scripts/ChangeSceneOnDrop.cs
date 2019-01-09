@@ -6,22 +6,17 @@ using UnityEngine.SceneManagement;
 public class ChangeSceneOnDrop : MonoBehaviour
 {
 
-    //public VRTK_SnapDropZone dropZone; 
-    // Use this for initialization
     void Start()
     {
-        //dropZone.ObjectSnappedToDropZone += CheckItem;
     }
 
-    //protected virtual void CheckItem(object sender, SnapDropZoneEventArgs e)
-    //{
-    //    GameObject item = dropZone.GetCurrentSnappedObject();
-    //    if (item.name == "Epee")
-    //    {
-    //        StartCoroutine("ChangeScene", "Game");
-            
-    //    }
-    //}
+    public virtual void CheckItem()
+    {
+        if (gameObject.name == "casque")
+        {
+            StartCoroutine("ChangeScene", "Game");
+        }
+    }
 
     IEnumerator ChangeScene(string scene)
     {
