@@ -42,7 +42,7 @@ public class DropPoint : MonoBehaviour
             dropTimer += Time.deltaTime / (snapTime / 2);
 
             body.isKinematic = dropTimer > 1;
-            if(Vector3.Distance(transform.position, snapTo.position) < 0.1)
+            if(Vector3.Distance(transform.position, snapTo.position) < 0.3)
             {
                 if (dropTimer > 1)
                 {
