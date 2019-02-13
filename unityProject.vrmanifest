@@ -2,10 +2,9 @@
   "source": "Unity",
   "applications": [
     {
-      "app_key": "application.generated.unity.steamvr.exe",
+      "app_key": "application.generated.unity.introductiontohtcvivefinal.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "bindings": [],
       "strings": {
         "en_us": {
           "name": "Introduction To HTC Vive - Final [Testing]"

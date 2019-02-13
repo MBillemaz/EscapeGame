@@ -2,35 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 public class ChangeScene : MonoBehaviour {
 
-    public int secToWait;
-    public string sceneName;
-    private IEnumerator coroutine;
-	// Use this for initialization
-	void Start () {
-        coroutine = WaitForScene();
-        StartCoroutine(coroutine);
-       
-	}
-	
-	// Update is called once per frame
-	//void Update () {
- //       var controller = VRTK_DeviceFinder.GetControllerRightHand().GetComponent<VRTK.VRTK_ControllerEvents>();
+    public SteamVR_Action_Boolean action;
 
- //       if (controller.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress)){
- //           StopCoroutine(coroutine);
- //           SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
- //       }
-	//}
+    public Hand hand;
+    void Start () {
 
-    IEnumerator WaitForScene()
+        action.AddOnChangeListener(OnTriggerPressed, hand.handType);
+    }
+
+    private void OnTriggerPressed(SteamVR_Action_In actionIn)
     {
-        yield return new WaitForSeconds(secToWait);
+        Change();
+    }
 
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    void Change()
+    {
 
-        yield return null;
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+
+    }
+
+    void OnDestroy()
+    {
+        action.RemoveOnChangeListener(OnTriggerPressed, hand.handType);
     }
 }
