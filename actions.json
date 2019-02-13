@@ -9,10 +9,6 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/default/in/InteractUI",
-      "type": "boolean"
-    },
-    {
       "name": "/actions/default/in/Teleport",
       "type": "boolean"
     },

@@ -21,8 +21,6 @@ namespace Valve.VR
         
         public static SteamVR_Action_Boolean __actions_default_in_Use;
         
-        public static SteamVR_Action_Boolean __actions_default_in_InteractUI;
-        
         public static SteamVR_Action_Boolean __actions_default_in_Teleport;
         
         public static SteamVR_Action_Boolean __actions_default_in_GrabPinch;
@@ -41,7 +39,6 @@ namespace Valve.VR
         {
             SteamVR_Input.__actions_default_in_Move.Initialize();
             SteamVR_Input.__actions_default_in_Use.Initialize();
-            SteamVR_Input.__actions_default_in_InteractUI.Initialize();
             SteamVR_Input.__actions_default_in_Teleport.Initialize();
             SteamVR_Input.__actions_default_in_GrabPinch.Initialize();
             SteamVR_Input.__actions_default_in_GrabGrip.Initialize();
@@ -55,7 +52,6 @@ namespace Valve.VR
         {
             Valve.VR.SteamVR_Input.__actions_default_in_Move = ((SteamVR_Action_Vector2)(SteamVR_Input_References.GetAction("__actions_default_in_Move")));
             Valve.VR.SteamVR_Input.__actions_default_in_Use = ((SteamVR_Action_Boolean)(SteamVR_Input_References.GetAction("__actions_default_in_Use")));
-            Valve.VR.SteamVR_Input.__actions_default_in_InteractUI = ((SteamVR_Action_Boolean)(SteamVR_Input_References.GetAction("__actions_default_in_InteractUI")));
             Valve.VR.SteamVR_Input.__actions_default_in_Teleport = ((SteamVR_Action_Boolean)(SteamVR_Input_References.GetAction("__actions_default_in_Teleport")));
             Valve.VR.SteamVR_Input.__actions_default_in_GrabPinch = ((SteamVR_Action_Boolean)(SteamVR_Input_References.GetAction("__actions_default_in_GrabPinch")));
             Valve.VR.SteamVR_Input.__actions_default_in_GrabGrip = ((SteamVR_Action_Boolean)(SteamVR_Input_References.GetAction("__actions_default_in_GrabGrip")));
@@ -67,7 +63,6 @@ namespace Valve.VR
             {
                     Valve.VR.SteamVR_Input.__actions_default_in_Move,
                     Valve.VR.SteamVR_Input.__actions_default_in_Use,
-                    Valve.VR.SteamVR_Input.__actions_default_in_InteractUI,
                     Valve.VR.SteamVR_Input.__actions_default_in_Teleport,
                     Valve.VR.SteamVR_Input.__actions_default_in_GrabPinch,
                     Valve.VR.SteamVR_Input.__actions_default_in_GrabGrip,
@@ -79,7 +74,6 @@ namespace Valve.VR
             {
                     Valve.VR.SteamVR_Input.__actions_default_in_Move,
                     Valve.VR.SteamVR_Input.__actions_default_in_Use,
-                    Valve.VR.SteamVR_Input.__actions_default_in_InteractUI,
                     Valve.VR.SteamVR_Input.__actions_default_in_Teleport,
                     Valve.VR.SteamVR_Input.__actions_default_in_GrabPinch,
                     Valve.VR.SteamVR_Input.__actions_default_in_GrabGrip,
@@ -98,7 +92,6 @@ namespace Valve.VR
             Valve.VR.SteamVR_Input.actionsBoolean = new Valve.VR.SteamVR_Action_Boolean[]
             {
                     Valve.VR.SteamVR_Input.__actions_default_in_Use,
-                    Valve.VR.SteamVR_Input.__actions_default_in_InteractUI,
                     Valve.VR.SteamVR_Input.__actions_default_in_Teleport,
                     Valve.VR.SteamVR_Input.__actions_default_in_GrabPinch,
                     Valve.VR.SteamVR_Input.__actions_default_in_GrabGrip};
@@ -115,7 +108,6 @@ namespace Valve.VR
             {
                     Valve.VR.SteamVR_Input.__actions_default_in_Move,
                     Valve.VR.SteamVR_Input.__actions_default_in_Use,
-                    Valve.VR.SteamVR_Input.__actions_default_in_InteractUI,
                     Valve.VR.SteamVR_Input.__actions_default_in_Teleport,
                     Valve.VR.SteamVR_Input.__actions_default_in_GrabPinch,
                     Valve.VR.SteamVR_Input.__actions_default_in_GrabGrip};
