@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tablette : MonoBehaviour {
 
@@ -18,46 +19,42 @@ public class Tablette : MonoBehaviour {
         neuf
     };    
     public Chiffres chiffre; // this public var should appear as a drop down
-    private Renderer rend;
-
-    // Use this for initialization
-    void Start () {
-        rend = GetComponent<Renderer>();        
-    }
 	
 	// Update is called once per frame
 	void Update () {
+        Text[] text = GetComponentsInChildren<Text>();
+
         switch (chiffre)
         {
             case Chiffres.zero:
-                rend.material.SetColor("_Color", Color.black);
+                text[0].text = 0.ToString();
                 break;
             case Chiffres.un:
-                rend.material.SetColor("_Color", Color.blue);
+                text[0].text = 1.ToString();
                 break;
             case Chiffres.deux:
-                rend.material.SetColor("_Color", Color.clear);
+                text[0].text = 2.ToString();
                 break;
             case Chiffres.trois:
-                rend.material.SetColor("_Color", Color.cyan);
+                text[0].text = 3.ToString();
                 break;
             case Chiffres.quatre:
-                rend.material.SetColor("_Color", Color.gray);
+                text[0].text = 4.ToString();
                 break;
             case Chiffres.cinq:
-                rend.material.SetColor("_Color", Color.green);
+                text[0].text = 5.ToString();
                 break;
             case Chiffres.six:
-                rend.material.SetColor("_Color", Color.magenta);
+                text[0].text = 6.ToString();
                 break;
             case Chiffres.sept:
-                rend.material.SetColor("_Color", Color.red);
+                text[0].text = 7.ToString();
                 break;
             case Chiffres.huit:
-                rend.material.SetColor("_Color", Color.white);
+                text[0].text = 8.ToString();
                 break;
             case Chiffres.neuf:
-                rend.material.SetColor("_Color", Color.yellow);
+                text[0].text = 9.ToString();
                 break;
             default:
                 break;

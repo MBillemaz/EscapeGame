@@ -23,8 +23,9 @@ public class TabletteSupport : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Color lightGrey = new Color(0.75f, 0.75f, 0.75f, 1f);
         rend = GetComponent<Renderer>();
-        rend.material.SetColor("_Color", Color.grey);
+        rend.material.SetColor("_Color", lightGrey);
     }
 
     private void OnTriggerEnter(Collider other)
