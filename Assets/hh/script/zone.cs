@@ -6,25 +6,25 @@ using System.Collections;
 public class zone : MonoBehaviour {
 
     public GameObject[] tmpObjets;
-    public GameObject autel;
+    public GameObject [] busteAutel;
     public GameObject[] listMorceaux;
     public int i = 0;
 
-    private void Awake()
-    {
-        
-    }
+    
     void Start()
     {
         //Instantier l'objet entier a reconstituer
         listMorceaux = new GameObject[GameObject.FindGameObjectsWithTag("Morceaux").Length];
         listMorceaux = GameObject.FindGameObjectsWithTag("Morceaux");
+
         tmpObjets = new GameObject[GameObject.FindGameObjectsWithTag("Morceaux").Length];
-        autel = GameObject.FindGameObjectWithTag("autel");
+
+        busteAutel = new GameObject[GameObject.FindGameObjectsWithTag("buste").Length];
+        busteAutel = GameObject.FindGameObjectsWithTag("autel");
     }
     private void allMorceaux()
     {
-        if (i == tmpObjets.Length)
+        if (this.i == this.tmpObjets.Length)
         {
             Debug.Log("On va détruire l'objet");
             //Appel de l'animation quand tous les objets sont présents
@@ -45,12 +45,15 @@ public class zone : MonoBehaviour {
         GameObject tmp = null;
         bool a = false;
         var tmp2 = 0;
+        if (other.CompareTag("Morceaux"))
+        {
 
+        
         for (int z = 0; z < listMorceaux.Length; z++)
         {
             if (listMorceaux[z].name.Equals(other.name))
             {
-                Debug.Log(listMorceaux[z].transform.position);
+               // Debug.Log(listMorceaux[z].transform.position);
                 tmp = listMorceaux[z];
   
                     for (int y = 0; y < tmpObjets.Length; y++)
@@ -61,6 +64,7 @@ public class zone : MonoBehaviour {
                             if (tmpObjets[y].Equals(tmp))
                             {
                                 tmp2 = 1;
+                                
                             }
                         }
 
@@ -68,10 +72,16 @@ public class zone : MonoBehaviour {
                     // si l'objet n'est pas présent on l'ajoute et on incremente i
                     if (tmp2 == 0)
                     {
-                        tmpObjets[i] = tmp;
-                        tmpObjets[i].transform.position = autel.transform.position + listMorceaux[z].transform.position;
-                    Debug.Log(tmpObjets[i].transform.position);
+                        tmpObjets[i] = tmp;                 
                         i++;
+                        for (int x = 0; x < busteAutel.Length; x++)
+                        {
+                            busteAutel[x].name.Equals(other.name);
+                            Renderer rend = busteAutel[x].GetComponent<Renderer>();
+                            rend.enabled = true;
+                            Renderer rend1 = other.GetComponent<Renderer>();
+                            rend1.enabled = false;
+                        }
                         Debug.Log(i);
                         Debug.Log(tmp);
                     }
@@ -79,7 +89,7 @@ public class zone : MonoBehaviour {
             allMorceaux();
 
         }
-
+        }
     }
         
         //morceaux.get
