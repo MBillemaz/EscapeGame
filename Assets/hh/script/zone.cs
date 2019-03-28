@@ -20,7 +20,7 @@ public class zone : MonoBehaviour {
         tmpObjets = new GameObject[GameObject.FindGameObjectsWithTag("Morceaux").Length];
 
         busteAutel = new GameObject[GameObject.FindGameObjectsWithTag("buste").Length];
-        busteAutel = GameObject.FindGameObjectsWithTag("autel");
+        busteAutel = GameObject.FindGameObjectsWithTag("buste");
     }
     private void allMorceaux()
     {
@@ -40,7 +40,7 @@ public class zone : MonoBehaviour {
     // Détecte si un morceaux a été trouvé, si tous les morceaux sont trouvés fait appel a l'animation pour reconstituer l'objet
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Nom : " + other.name);
+       
 
         GameObject tmp = null;
         bool a = false;
@@ -49,46 +49,52 @@ public class zone : MonoBehaviour {
         {
 
         
-        for (int z = 0; z < listMorceaux.Length; z++)
-        {
-            if (listMorceaux[z].name.Equals(other.name))
+            for (int z = 0; z < listMorceaux.Length; z++)
             {
-               // Debug.Log(listMorceaux[z].transform.position);
-                tmp = listMorceaux[z];
+                if (listMorceaux[z].name.Equals(other.name))
+                {
+                   // Debug.Log(listMorceaux[z].transform.position);
+                    tmp = listMorceaux[z];
   
-                    for (int y = 0; y < tmpObjets.Length; y++)
-                    {
-
-                        if (tmpObjets[y] != null)
+                        for (int y = 0; y < tmpObjets.Length; y++)
                         {
-                            if (tmpObjets[y].Equals(tmp))
+
+                            if (tmpObjets[y] != null)
                             {
-                                tmp2 = 1;
+                                if (tmpObjets[y].Equals(tmp))
+                                {
+                                    tmp2 = 1;
                                 
+                                }
                             }
-                        }
 
-                    }
-                    // si l'objet n'est pas présent on l'ajoute et on incremente i
-                    if (tmp2 == 0)
-                    {
-                        tmpObjets[i] = tmp;                 
-                        i++;
-                        for (int x = 0; x < busteAutel.Length; x++)
+                        }
+                        // si l'objet n'est pas présent on l'ajoute et on incremente i
+                        if (tmp2 == 0)
                         {
-                            busteAutel[x].name.Equals(other.name);
-                            Renderer rend = busteAutel[x].GetComponent<Renderer>();
-                            rend.enabled = true;
-                            Renderer rend1 = other.GetComponent<Renderer>();
-                            rend1.enabled = false;
+                            tmpObjets[i] = tmp;                 
+                            i++;
+                            for (int x = 0; x < busteAutel.Length; x++)
+                            {
+                                Debug.Log("Test : " + other.name + " " + busteAutel[x].name);
+                            if (busteAutel[x].name == other.name)
+                                {
+                                    Debug.Log("Nom : " + other.name);
+                                    MeshRenderer rend = busteAutel[x].GetComponent<MeshRenderer>();
+                                    rend.enabled = true;
+                                    MeshRenderer rend1 = other.GetComponent<MeshRenderer>();
+                                    rend1.enabled = false;
+                                }
+                          
+                            }
+                            Debug.Log(i);
+                            Debug.Log(tmp);
                         }
-                        Debug.Log(i);
-                        Debug.Log(tmp);
+                    tmp2 = 0;
                     }
-                }
-            allMorceaux();
+                allMorceaux();
 
-        }
+            }
         }
     }
         
