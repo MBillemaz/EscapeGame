@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ChangeSceneOnDrop : MonoBehaviour
 {
-
+    public string level;
     void Start()
     {
     }
@@ -14,7 +14,7 @@ public class ChangeSceneOnDrop : MonoBehaviour
     {
         if (gameObject.name == "casque")
         {
-            StartCoroutine("ChangeScene", "Game");
+            StartCoroutine("ChangeScene", level );
         }
     }
 

@@ -23,7 +23,7 @@ public class DropPoint : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool used = false;
+        Hand used = null;
         if (interactable != null)
             used = interactable.attachedToHand;
         
@@ -33,6 +33,9 @@ public class DropPoint : MonoBehaviour
             body.isKinematic = false;
             dropTimer = -1;
 
+            body.velocity = Vector3.zero;
+            body.angularVelocity = Vector3.zero;
+           // body.transform.position = used.transform.position - new Vector3(0, 0.2f, 0);
             if (body.useGravity)
                 body.AddForce(-Physics.gravity);
         }
