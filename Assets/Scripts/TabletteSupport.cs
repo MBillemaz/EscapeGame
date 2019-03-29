@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TabletteSupport : MonoBehaviour {
+public class TabletteSupport : MonoBehaviour, SnapActionInterface {
 
+    public bool hasItem;
     private Renderer rend;
+    GameObject dropObject;
     public enum Chiffres // your custom enumeration
     {
         zero,
@@ -26,18 +28,36 @@ public class TabletteSupport : MonoBehaviour {
         Color lightGrey = new Color(0.75f, 0.75f, 0.75f, 1f);
         rend = GetComponent<Renderer>();
         rend.material.SetColor("_Color", lightGrey);
+        this.hasItem = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void SnapAction(object number)
     {
-        if (other.tag == "Tablette")
+        isValueCorrect = false;
+        if (number.ToString() == value.ToString())
         {
-            isValueCorrect = false;
-            if (other.GetComponent<Tablette>().chiffre.ToString() == value.ToString())
-            {
-                isValueCorrect = true;
-            }
-            FindObjectOfType<SupportCode>().UpdateCodeBool();
+            isValueCorrect = true;
         }
+        FindObjectOfType<SupportCode>().UpdateCodeBool();
+    }
+
+    public void ToggleHasItem()
+    {
+        this.hasItem = !this.hasItem;
+    }
+
+    public bool HasItem()
+    {
+        return hasItem;
+    }
+
+    public void setDropObject(GameObject obj)
+    {
+        dropObject = obj;
+    }
+
+    public GameObject DropObject()
+    {
+        return dropObject;
     }
 }
