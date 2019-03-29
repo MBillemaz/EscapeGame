@@ -44,7 +44,7 @@ public class DropPoint : MonoBehaviour
 
             body.velocity = Vector3.zero;
             body.angularVelocity = Vector3.zero;
-            body.position = used.transform.position;
+           // body.position = used.transform.position;
            // body.transform.position = used.transform.position - new Vector3(0, 0.2f, 0);
             if (body.useGravity)
                 body.AddForce(-Physics.gravity);

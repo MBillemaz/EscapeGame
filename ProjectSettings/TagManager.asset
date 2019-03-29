@@ -8,6 +8,7 @@ TagManager:
   - autel
   - Morceaux
   - buste
+  - Enigme
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Enigme
   - 
   - 
   - 
