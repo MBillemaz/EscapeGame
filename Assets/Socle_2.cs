@@ -11,25 +11,39 @@ public class Socle_2 : MonoBehaviour {
     // Parametre variable de la force
     float ForceVariable;
     // Parametre Total de la force 
-    public float TotalForce = 0;
+    public float TotalForce;
 
     // Inistialisation du socle 2
     void Start()
     {
         n_rigidbody = GetComponent<Rigidbody>();
         n_rigidbody.mass = ForceDefault;
+        TotalForce = ForceDefault;
     }
 
     void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
+        if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
         {
             TotalForce = 0;
         }
         else
         {
             ForceVariable = col.rigidbody.mass;
-            TotalForce = ForceVariable + ForceDefault;
+            TotalForce = ForceVariable + TotalForce;
+        }
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
+        {
+            TotalForce = 0;
+        }
+        else
+        {
+            ForceVariable = col.rigidbody.mass;
+            TotalForce = TotalForce - ForceVariable;
         }
     }
 

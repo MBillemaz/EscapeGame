@@ -9,9 +9,9 @@ public class Rotation : MonoBehaviour
     private Rigidbody body;
     private Quaternion currentRotation;
     public Transform originalPosition;
-    private Vector3 originalPos;
-
-
+    private Vector3 originalRot;
+    private float dropTimer = 0;
+    private bool tabAppear = false;
     // Inistialisation de la barre
     void Start()
     {
@@ -24,15 +24,8 @@ public class Rotation : MonoBehaviour
 
         GameObject Sce2 = GameObject.Find("Socle 2");
         Socle_2 Sce2Script = Sce2.GetComponent<Socle_2>();
+        this.body.constraints = RigidbodyConstraints.FreezeRotation;
 
-        originalPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
-
-        // Comparaison de la force par défault des socles 
-        // Freeze De la rotation de la barre
-        if (Sce1Script.ForceDefault == Sce2Script.ForceDefault)
-        {
-            this.body.constraints = RigidbodyConstraints.FreezeRotation;
-        }
     }
 
     void Update()
@@ -45,24 +38,33 @@ public class Rotation : MonoBehaviour
         GameObject Sce2 = GameObject.Find("Socle 2");
         Socle_2 Sce2Script = Sce2.GetComponent<Socle_2>();
 
-         
-        if (Sce1Script.TotalForce != 0)
+
+        if (Sce1Script.TotalForce != 10 || Sce2Script.TotalForce != 10 || Sce1Script.TotalForce != Sce2Script.TotalForce)
         {
             this.body.constraints = RigidbodyConstraints.None;
 
         }
-
-        if (Sce2Script.TotalForce != 0)
-        {
-            this.body.constraints = RigidbodyConstraints.None;
-
-        }
-
-
         if (Sce1Script.TotalForce == Sce2Script.TotalForce)
         {
-            gameObject.transform.position = originalPos;
+            if(body.rotation.x > -0.01 && body.rotation.x < 0.01)
+            {
+                body.constraints = RigidbodyConstraints.FreezeRotationX;
+                if (!tabAppear)
+                {
+                    tabAppear = !tabAppear;
+                    /**
+                     * SPAWN TABLETTE 
+                     */
 
+                }
+            } else
+            {
+                this.body.angularVelocity = body.rotation.x > 0 ? new Vector3(-1, 0, 0) : body.rotation.x < 0 ? new Vector3(0.5f, 0, 0) : Vector3.zero;
+            }
+           
+        } else
+        {
+            dropTimer = 0;
         }
     }
 }
