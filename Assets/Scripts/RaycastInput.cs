@@ -23,11 +23,11 @@ public class RaycastInput : MonoBehaviour {
         RaycastHit rayHit;
         //Check if raycast hits anything
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.red, 1);
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, 2, 1 << 14))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, 2, LayerMask.GetMask("Enigme"))) 
         {
            
             string tag = rayHit.transform.tag;
-            rayCastObject = rayHit.transform.gameObject;
+            rayCastObject = rayHit.collider.transform.gameObject;
             viseur.transform.position = rayHit.point;
         } else
         {
@@ -37,14 +37,12 @@ public class RaycastInput : MonoBehaviour {
 
     private void OnTriggerPressed(SteamVR_Action_In actionIn)
     {
-        Debug.Log(actionIn.name);
         if(rayCastObject)
         {
             RaycastEvent hitObject = rayCastObject.GetComponent<RaycastEvent>();
             if (hitObject)
             {
-                Debug.Log(rayCastObject.name);
-                hitObject.Test();
+                hitObject.Trigger();
             }
         }
        

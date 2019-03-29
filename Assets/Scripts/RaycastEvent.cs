@@ -13,19 +13,16 @@ public class RaycastEvent : MonoBehaviour {
 
     
 	
-	public void Test()
+	public void Trigger()
     {
 
         Text parentText = transform.parent.GetChild(1).GetComponent<Text>();
-        Debug.Log(transform.parent);
-        Debug.Log(transform.parent.GetChild(0).name);
-        Debug.Log(text.text);
-        if(text.text == "Reponse 1")
+        if(text.text == "L'Homme")
         {
             parentText.text = "PERFECT !";
         } else
         {
-            parentText.text = "NEIN NEIN NEIN !";
+
         }
     }
 }
