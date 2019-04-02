@@ -17,14 +17,13 @@ public class Rotation : MonoBehaviour
     {
         // Gestion du Rigiboby de la Barre de la balance
         this.body = GetComponent<Rigidbody>();
-
         // Récuperation et detection des socles 
         GameObject Sce1 = GameObject.Find("Socle 1");
         Socle_1 Sce1Script = Sce1.GetComponent<Socle_1>();
 
         GameObject Sce2 = GameObject.Find("Socle 2");
         Socle_2 Sce2Script = Sce2.GetComponent<Socle_2>();
-        this.body.constraints = RigidbodyConstraints.FreezeRotation;
+       // this.body.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
     }
 
@@ -39,27 +38,30 @@ public class Rotation : MonoBehaviour
         Socle_2 Sce2Script = Sce2.GetComponent<Socle_2>();
 
 
-        if (Sce1Script.TotalForce != 10 || Sce2Script.TotalForce != 10 || Sce1Script.TotalForce != Sce2Script.TotalForce)
-        {
-            this.body.constraints = RigidbodyConstraints.None;
+        //if (Sce1Script.TotalForce != 10 || Sce2Script.TotalForce != 10 || Sce1Script.TotalForce != Sce2Script.TotalForce)
+        //{
 
-        }
+
+        //}
+        Debug.Log(Sce1Script.TotalForce + " " + Sce2Script.TotalForce);
         if (Sce1Script.TotalForce == Sce2Script.TotalForce)
         {
-            if(body.rotation.x > -0.01 && body.rotation.x < 0.01)
+            Debug.Log(body.angularVelocity);
+            if(body.rotation.z > -0.01 && body.rotation.z < 0.01)
             {
-                body.constraints = RigidbodyConstraints.FreezeRotationX;
+                body.constraints = RigidbodyConstraints.FreezeAll;
                 if (!tabAppear)
                 {
                     tabAppear = !tabAppear;
                     /**
                      * SPAWN TABLETTE 
                      */
+                    Debug.Log("Win");
 
                 }
             } else
             {
-                this.body.angularVelocity = body.rotation.x > 0 ? new Vector3(-1, 0, 0) : body.rotation.x < 0 ? new Vector3(0.5f, 0, 0) : Vector3.zero;
+                this.body.angularVelocity = body.rotation.z > 0 ? new Vector3(0, 0, -0.5f) : body.rotation.z < 0 ? new Vector3(0, 0, 0.5f) : Vector3.zero;
             }
            
         } else
