@@ -30,10 +30,11 @@ public class zone : MonoBehaviour {
             //Appel de l'animation quand tous les objets sont présents
 
             //Destruction de tous les morceaux
-            for (var y = 0; y < i; y++)
-            {
-                Destroy(tmpObjets[y]);
-            }
+            /* for (var y = 0; y < i; y++)
+             {
+                 Destroy(tmpObjets[y]);
+             }*/
+            GetComponent<GenerateTablette>().Spawn();
 
         }
     }
@@ -74,10 +75,10 @@ public class zone : MonoBehaviour {
                         {
                             tmpObjets[i] = tmp;                 
                             i++;
-                            for (int x = 0; x < busteAutel.Length; x++)
+                            /*for (int x = 0; x < busteAutel.Length; x++)
                             {
                                 Debug.Log("Test : " + other.name + " " + busteAutel[x].name);
-                            if (busteAutel[x].name == other.name)
+                                if (busteAutel[x].name == other.name)
                                 {
                                     Debug.Log("Nom : " + other.name);
                                     MeshRenderer rend = busteAutel[x].GetComponent<MeshRenderer>();
@@ -86,9 +87,7 @@ public class zone : MonoBehaviour {
                                     rend1.enabled = false;
                                 }
                           
-                            }
-                            Debug.Log(i);
-                            Debug.Log(tmp);
+                            }*/
                         }
                     tmp2 = 0;
                     }

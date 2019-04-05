@@ -16,12 +16,18 @@ public class RaycastEvent : MonoBehaviour {
 	public void Trigger()
     {
 
-        Text parentText = transform.parent.GetChild(1).GetComponent<Text>();
-        if(text.text == "L'Homme")
+        GenerateTablette script = transform.parent.GetComponent<GenerateTablette>();
+        ColorBlock colors = GetComponent<Button>().colors;
+        if (text.text == "L'Homme")
         {
-            parentText.text = "PERFECT !";
+            colors.normalColor = Color.green;
+            GetComponent<Button>().colors = colors;
+            script.Spawn();
         } else
         {
+
+            colors.normalColor = Color.red;
+            GetComponent<Button>().colors = colors;
 
         }
     }

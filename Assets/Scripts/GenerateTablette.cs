@@ -6,9 +6,16 @@ public class GenerateTablette : MonoBehaviour {
 
     // Use this for initialization
     public Transform spawnPoint;
-    public Tablette.Chiffres number;
-    public void Create()
+    public GameObject tablette;
+    private bool hasSpawn = false;
+    public void Spawn()
     {
+        if (!hasSpawn)
+        {
+            hasSpawn = true;
+            tablette.transform.position = spawnPoint.position;
+            tablette.GetComponent<Rigidbody>().useGravity = true;
+        }
 
     }
 }

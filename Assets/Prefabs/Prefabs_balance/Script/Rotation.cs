@@ -38,12 +38,6 @@ public class Rotation : MonoBehaviour
         Socle_2 Sce2Script = Sce2.GetComponent<Socle_2>();
 
 
-        //if (Sce1Script.TotalForce != 10 || Sce2Script.TotalForce != 10 || Sce1Script.TotalForce != Sce2Script.TotalForce)
-        //{
-
-
-        //}
-        Debug.Log(Sce1Script.TotalForce + " " + Sce2Script.TotalForce);
         if (Sce1Script.TotalForce == Sce2Script.TotalForce)
         {
             Debug.Log(body.angularVelocity);
@@ -53,10 +47,7 @@ public class Rotation : MonoBehaviour
                 if (!tabAppear)
                 {
                     tabAppear = !tabAppear;
-                    /**
-                     * SPAWN TABLETTE 
-                     */
-                    Debug.Log("Win");
+                    GetComponent<GenerateTablette>().Spawn();   
 
                 }
             } else

@@ -53,15 +53,16 @@ public class DropPoint : MonoBehaviour
         {
            // body.useGravity = true;
             dropTimer += Time.deltaTime / (snapTime / 2);
-
-            Array.Sort(snapTo, (x, y) => Vector3.Distance(transform.position, x.position) < Vector3.Distance(transform.position, y.position) ? -1 : 1);
+            
+            if(snapTo.Length > 1)
+            {
+                Array.Sort(snapTo, (x, y) => Vector3.Distance(transform.position, x.position) < Vector3.Distance(transform.position, y.position) ? -1 : 1);
+            }
             Transform nearest = snapTo[0];
               
             if(Vector3.Distance(transform.position, nearest.position) < 0.3)
             {
-
                 var drop = nearest.GetComponent<SnapActionInterface>();
-                Debug.Log("drop " + drop.HasItem());
                 if (drop != null && (!drop.HasItem() || drop.DropObject() == gameObject))
                 {
                     dropPoint = drop;
