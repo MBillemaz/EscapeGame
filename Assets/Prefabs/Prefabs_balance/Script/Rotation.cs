@@ -36,11 +36,9 @@ public class Rotation : MonoBehaviour
 
         GameObject Sce2 = GameObject.Find("Socle 2");
         Socle_2 Sce2Script = Sce2.GetComponent<Socle_2>();
-
-
-        if (Sce1Script.TotalForce == Sce2Script.TotalForce)
+        
+        if (Sce1Script.TotalForce != 10 && Sce1Script.TotalForce == Sce2Script.TotalForce)
         {
-            Debug.Log(body.angularVelocity);
             if(body.rotation.z > -0.01 && body.rotation.z < 0.01)
             {
                 body.constraints = RigidbodyConstraints.FreezeAll;

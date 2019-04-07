@@ -60,7 +60,7 @@ public class DropPoint : MonoBehaviour
             }
             Transform nearest = snapTo[0];
               
-            if(Vector3.Distance(transform.position, nearest.position) < 0.3)
+            if(nearest && Vector3.Distance(transform.position, nearest.position) < 0.3)
             {
                 var drop = nearest.GetComponent<SnapActionInterface>();
                 if (drop != null && (!drop.HasItem() || drop.DropObject() == gameObject))

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Socle_1 : MonoBehaviour {
+public class Socle_2 : MonoBehaviour {
 
     // Gestion de la masse
     Rigidbody n_rigidbody;
@@ -11,21 +11,21 @@ public class Socle_1 : MonoBehaviour {
     // Parametre variable de la force
     float ForceVariable;
     // Parametre Total de la force 
-   public float TotalForce;
+    public float TotalForce;
 
-    // Inistialisation du socle 1
-    void Start () {
+    // Inistialisation du socle 2
+    void Start()
+    {
         n_rigidbody = GetComponent<Rigidbody>();
         n_rigidbody.mass = ForceDefault;
         TotalForce = ForceDefault;
-
     }
 
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
         {
-            TotalForce = 0;
+           
         }
         else
         {
@@ -38,7 +38,7 @@ public class Socle_1 : MonoBehaviour {
     {
         if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
         {
-            TotalForce = 0;
+            //TotalForce = 0;
         }
         else
         {

@@ -23,7 +23,7 @@ public class RaycastInput : MonoBehaviour {
         RaycastHit rayHit;
         //Check if raycast hits anything
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.red, 1);
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, 2, LayerMask.GetMask("Enigme"))) 
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayHit, 1, LayerMask.GetMask("Enigme"))) 
         {
            
             string tag = rayHit.transform.tag;
