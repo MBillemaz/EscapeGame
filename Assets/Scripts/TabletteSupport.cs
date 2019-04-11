@@ -34,7 +34,9 @@ public class TabletteSupport : MonoBehaviour, SnapActionInterface {
     public void SnapAction(object number)
     {
         isValueCorrect = false;
-        if (number.ToString() == value.ToString())
+      
+        Tablette.Chiffres chiffre = GameObject.Find(number.ToString()).GetComponent<Tablette>().chiffre;
+        if (chiffre.ToString() == value.ToString())
         {
             isValueCorrect = true;
         }
