@@ -27,6 +27,7 @@ public class SnapKeyAction : MonoBehaviour, SnapActionInterface
     {
         if(isUsed && !finished)
         {
+            coffreRigid.isKinematic = false;
             coffreRigid.angularVelocity = new Vector3(0, 0, 0.5f);
         }
         if(coffreRigid.rotation.x <= -0.75)
