@@ -29,7 +29,7 @@ GameObject:
   - component: {fileID: 114469914242548138}
   - component: {fileID: 114185770423554076}
   m_Layer: 0
-  m_Name: tablette
+  m_Name: Tablette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
