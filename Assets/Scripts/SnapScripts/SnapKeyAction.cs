@@ -14,11 +14,14 @@ public class SnapKeyAction : MonoBehaviour, SnapActionInterface
 
     public Rigidbody coffreRigid;
 
+    public AudioClip audioClip;
+
     public void SnapAction(object name)
     {
         if (!isUsed)
         {
             isUsed = true;
+            GetComponent<AudioSource>().Play();
         }
         
     }
@@ -27,11 +30,15 @@ public class SnapKeyAction : MonoBehaviour, SnapActionInterface
     {
         if(isUsed && !finished)
         {
+            GetComponent<AudioSource>().Stop();
+            GetComponent<AudioSource>().clip = audioClip;
+            GetComponent<AudioSource>().Play();
             coffreRigid.isKinematic = false;
             coffreRigid.angularVelocity = new Vector3(0, 0, 0.5f);
         }
         if(coffreRigid.rotation.x <= -0.75)
         {
+            GetComponent<AudioSource>().Stop();
             coffreRigid.constraints = RigidbodyConstraints.FreezeAll;
             finished = true;
         }
