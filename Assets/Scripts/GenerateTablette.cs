@@ -12,6 +12,7 @@ public class GenerateTablette : MonoBehaviour {
     {
         if (!hasSpawn)
         {
+            GetComponent<AudioSource>().Play();
             hasSpawn = true;
             tablette.transform.position = spawnPoint.position;
             tablette.GetComponent<Rigidbody>().useGravity = true;
