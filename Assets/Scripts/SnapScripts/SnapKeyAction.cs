@@ -14,7 +14,6 @@ public class SnapKeyAction : MonoBehaviour, SnapActionInterface
 
     public Rigidbody coffreRigid;
 
-    public AudioClip audioClip;
 
     public void SnapAction(object name)
     {
@@ -30,9 +29,6 @@ public class SnapKeyAction : MonoBehaviour, SnapActionInterface
     {
         if(isUsed && !finished)
         {
-            GetComponent<AudioSource>().Stop();
-            GetComponent<AudioSource>().clip = audioClip;
-            GetComponent<AudioSource>().Play();
             coffreRigid.isKinematic = false;
             coffreRigid.angularVelocity = new Vector3(0, 0, 0.5f);
         }
