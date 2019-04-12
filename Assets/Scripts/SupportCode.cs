@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SupportCode : MonoBehaviour {
 
     private bool isCodeRight = false;
+
+    private bool changeLoaded = false;
     	
     public void UpdateCodeBool()
     {
@@ -21,9 +24,17 @@ public class SupportCode : MonoBehaviour {
     
     private void CheckCode()
     {
-        if (isCodeRight)
-            Debug.Log("Bon Code !!");
-        else
-            Debug.Log("Mauvais Code / Plaquette manquante");
+        if (isCodeRight && !changeLoaded)
+            StartCoroutine("ChangeScene", "Menu");
+    }
+
+    IEnumerator ChangeScene(string scene)
+    {
+        yield return new WaitForSeconds(1);
+        changeLoaded = true;
+
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
+
+        yield return null;
     }
 }
