@@ -12,6 +12,8 @@ public class Rotation : MonoBehaviour
     private Vector3 originalRot;
     private float dropTimer = 0;
     private bool tabAppear = false;
+
+    
     // Inistialisation de la barre
     void Start()
     {
@@ -56,6 +58,37 @@ public class Rotation : MonoBehaviour
         } else
         {
             dropTimer = 0;
+            // AR
+            float coordZ, coordX, coordY, force;
+            body.constraints = RigidbodyConstraints.None;
+            force = Sce1Script.TotalForce;
+            coordZ = force.Map(0,
+                    Sce1Script.TotalForce + Sce2Script.TotalForce,
+                    -10,
+                    10);
+            coordX = body.rotation.x;
+            coordY = body.rotation.y;
+            //body.MoveRotation(currentRotation.normalized);
+            if(coordZ < body.rotation.z-0.5 && coordZ > body.rotation.z+0.5)
+                body.MoveRotation(Quaternion.Euler(new Vector3(0, 0, coordZ)));
+            //body.constraints = RigidbodyConstraints.FreezeAll;
         }
+    }
+
+    /*public void onRotationZ()
+    {
+        if (body.rotation.z > currentRotation.z - 0.1 && body.rotation.z < currentRotation.z + 0.1)
+            body.constraints = RigidbodyConstraints.FreezeAll;
+    }*/
+}
+
+public static class ExtensionMethods
+{
+    public static float Map(this float valeur, float fromSource, float toSource, float fromTarget, float toTarget)
+    {
+        //dynamic valeur = value, minFrom = fromSource, maxFrom = toSource, minTo = fromTarget, maxTo = toTarget;
+        //return (value - minFrom) / (maxFrom - minFrom) * (maxTo - minTo) + minTo;
+        float res = (float)Math.Round((valeur - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget, 1);
+        return res;
     }
 }
