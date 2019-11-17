@@ -25,6 +25,7 @@ public class ChangeSceneOnDrop : MonoBehaviour, SnapActionInterface
 
     public void SnapAction(object name)
     {
+        Debug.Log("Ady"+ this.dropObject);
         Debug.Log(name);
         if (name.ToString() == "casque")
         {
