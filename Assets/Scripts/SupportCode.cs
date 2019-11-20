@@ -25,7 +25,14 @@ public class SupportCode : MonoBehaviour {
     private void CheckCode()
     {
         if (isCodeRight && !changeLoaded)
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            Trophee trophee = TropheesManager.Trophees.Find(g => g.GetComponent<Trophee>().Level == scene.name).GetComponent<Trophee>();
+            trophee.IsLocked = false;
+            Debug.Log(trophee);
             StartCoroutine("ChangeScene", "Menu");
+        }
+           
     }
 
     IEnumerator ChangeScene(string scene)
