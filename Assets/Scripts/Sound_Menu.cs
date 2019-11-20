@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sound : MonoBehaviour
+public class Sound_Menu : MonoBehaviour
 {
 
     public AudioSource metalDrop1;
@@ -19,17 +19,16 @@ public class Sound : MonoBehaviour
         metalDrop2.Play();
     }
 
-    void OnTriggerEnter()
+    public void OnTriggerEnter()
     {
-        if (hasBeenTriggered)
+        if (!hasBeenTriggered)
         {
-            metalDrop2.Play();
+            playmetalDrop1();
+            hasBeenTriggered = true;
         }
         else
         {
-            metalDrop1.Play();
-            hasBeenTriggered = true;
+            playmetalDrop2();
         }
-
     }
 }
