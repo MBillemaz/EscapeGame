@@ -25,7 +25,7 @@ public class ChangeSceneOnDrop : MonoBehaviour, SnapActionInterface
 
     public void SnapAction(object name)
     {
-        Trophee trophee = TropheesManager.Trophees.Find((t) => t.name == name.ToString()).GetComponent<Trophee>();
+        Trophee trophee = TropheesManager.Trophees.Find((t) => t.name == name.ToString());
         Debug.Log(trophee);
         if (name.ToString() == trophee.name)
         {

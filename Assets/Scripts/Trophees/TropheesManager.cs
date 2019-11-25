@@ -5,8 +5,8 @@ using UnityEngine;
 public class TropheesManager : MonoBehaviour {
 
 
-    public static List<GameObject> Trophees = new List<GameObject>();
-    public static List<GameObject> UnlockedTrophees = new List<GameObject>();
+    public static List<Trophee> Trophees = new List<Trophee>();
+    public static List<Trophee> UnlockedTrophees = new List<Trophee>();
 
     public GameObject dropPoint;
 
@@ -18,19 +18,18 @@ public class TropheesManager : MonoBehaviour {
 	
 
     //Get all rewards
-    public List<GameObject> GetTrophees()
+    public List<Trophee> GetTrophees()
     {
         for (int i = 0; i < this.transform.childCount; i++)
         {
             GameObject child = this.transform.GetChild(i).gameObject;
-            Trophees.Add(child);
-        }
-      
+            Trophees.Add(child.GetComponent<Trophee>());
+        } 
         return Trophees;
     }
 
 
-    public List<GameObject> GetUnlockedTrophees()
+    public List<Trophee> GetUnlockedTrophees()
     {
         this.transform.GetChild(0).gameObject.GetComponent<Trophee>().IsLocked = false;
         for (int i = 0; i < this.transform.childCount; i++)
@@ -46,12 +45,11 @@ public class TropheesManager : MonoBehaviour {
                 else
                 {
                     child.SetActive(true);
-                    UnlockedTrophees.Add(child);
+                    UnlockedTrophees.Add(trophee);
                 }
             }
 
         }
-
         return UnlockedTrophees;
     }
 

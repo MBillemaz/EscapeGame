@@ -24,15 +24,21 @@ public class SupportCode : MonoBehaviour {
     
     private void CheckCode()
     {
+
         if (isCodeRight && !changeLoaded)
         {
-            Scene scene = SceneManager.GetActiveScene();
-            Trophee trophee = TropheesManager.Trophees.Find(g => g.GetComponent<Trophee>().Level == scene.name).GetComponent<Trophee>();
-            trophee.IsLocked = false;
-            Debug.Log(trophee);
+            this.UnLockNextLevelTrophee();
             StartCoroutine("ChangeScene", "Menu");
         }
            
+    }
+
+    private void UnLockNextLevelTrophee()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        Trophee trophee = TropheesManager.Trophees.Find(t => t.Level == scene.name);
+        Trophee nextLevelTrophee = TropheesManager.UnlockedTrophees.Find(t => t.LevelNumber == trophee.LevelNumber + 1);
+        nextLevelTrophee.IsLocked = false;
     }
 
     IEnumerator ChangeScene(string scene)

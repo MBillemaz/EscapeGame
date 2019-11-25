@@ -7,6 +7,7 @@ public class Trophee: MonoBehaviour {
     public string Name;
     public string Level;
     public bool IsLocked;
+    public int LevelNumber;
 
     void Start()
     {
