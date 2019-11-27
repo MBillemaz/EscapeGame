@@ -12,8 +12,9 @@ public class Rotation : MonoBehaviour
     private Vector3 originalRot;
     private float dropTimer = 0;
     private bool tabAppear = false;
+    private bool rotate;
 
-    
+
     // Inistialisation de la barre
     void Start()
     {
@@ -58,37 +59,53 @@ public class Rotation : MonoBehaviour
         } else
         {
             dropTimer = 0;
-            // AR
-            float coordZ, coordX, coordY, force;
-            body.constraints = RigidbodyConstraints.None;
-            force = Sce1Script.TotalForce;
-            coordZ = force.Map(0,
-                    Sce1Script.TotalForce + Sce2Script.TotalForce,
-                    -10,
-                    10);
-            coordX = body.rotation.x;
-            coordY = body.rotation.y;
-            //body.MoveRotation(currentRotation.normalized);
-            if(coordZ < body.rotation.z-0.5 && coordZ > body.rotation.z+0.5)
-                body.MoveRotation(Quaternion.Euler(new Vector3(0, 0, coordZ)));
-            //body.constraints = RigidbodyConstraints.FreezeAll;
         }
     }
 
-    /*public void onRotationZ()
+    private void FixedUpdate() // AR
     {
-        if (body.rotation.z > currentRotation.z - 0.1 && body.rotation.z < currentRotation.z + 0.1)
-            body.constraints = RigidbodyConstraints.FreezeAll;
-    }*/
+        GameObject Sce1 = GameObject.Find("Socle 1");
+        Socle_1 Sce1Script = Sce1.GetComponent<Socle_1>();
+
+        GameObject Sce2 = GameObject.Find("Socle 2");
+        Socle_2 Sce2Script = Sce2.GetComponent<Socle_2>();
+
+        float coordZ, force;
+        
+        force = Sce1Script.TotalForce - 10;
+        coordZ = force.Map(0,
+                (Sce1Script.TotalForce - 10) + (Sce2Script.TotalForce - 10),
+                -20,
+                20);
+
+        if (Math.Abs(Math.Abs(body.transform.rotation.eulerAngles.z.Euler()) - Math.Abs(coordZ)) < 0.5f)
+            rotate = false;
+        else
+            rotate = true;
+
+        if(rotate) body.transform.Rotate((coordZ > 0 ? Vector3.forward : Vector3.back) * Time.deltaTime * 10, Space.World);
+    }
 }
 
 public static class ExtensionMethods
 {
     public static float Map(this float valeur, float fromSource, float toSource, float fromTarget, float toTarget)
     {
-        //dynamic valeur = value, minFrom = fromSource, maxFrom = toSource, minTo = fromTarget, maxTo = toTarget;
-        //return (value - minFrom) / (maxFrom - minFrom) * (maxTo - minTo) + minTo;
         float res = (float)Math.Round((valeur - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget, 1);
         return res;
+    }
+
+    public static float Euler(this float valeur)
+    {
+        if (valeur <= 180)
+        {
+            return valeur;
+        }
+        else
+        {
+            valeur -= 180;
+            valeur *= -1;
+            return (float)Math.Round(-180 - valeur, 1);
+        }
     }
 }
