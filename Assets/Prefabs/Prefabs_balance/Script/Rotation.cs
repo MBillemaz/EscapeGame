@@ -80,6 +80,8 @@ public class Rotation : MonoBehaviour
 
         if (Math.Abs(Math.Abs(body.transform.rotation.eulerAngles.z.Euler()) - Math.Abs(coordZ)) < 0.5f)
             rotate = false;
+        else if (Math.Abs(body.transform.rotation.eulerAngles.z.Euler()) > 20)
+            rotate = false;
         else
             rotate = true;
 
