@@ -85,11 +85,11 @@ public class Rotation : MonoBehaviour
         else
             rotate = true;
 
-        if(rotate) body.transform.Rotate((coordZ > 0 ? Vector3.forward : Vector3.back) * Time.deltaTime * 10, Space.World);
+        if(rotate) body.transform.Rotate((coordZ > body.transform.rotation.eulerAngles.z.Euler() ? Vector3.forward : Vector3.back) * Time.deltaTime * 10, Space.World);
     }
 }
 
-public static class ExtensionMethods
+public static class ExtensionMethods // AR
 {
     public static float Map(this float valeur, float fromSource, float toSource, float fromTarget, float toTarget)
     {
