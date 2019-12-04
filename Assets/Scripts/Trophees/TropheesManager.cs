@@ -6,7 +6,6 @@ public class TropheesManager : MonoBehaviour {
 
 
     public static List<Trophee> Trophees = new List<Trophee>();
-    public static List<Trophee> UnlockedTrophees = new List<Trophee>();
 
     public GameObject dropPoint;
 
@@ -14,6 +13,7 @@ public class TropheesManager : MonoBehaviour {
     void Start () {
        this.GetTrophees();
        this.GetUnlockedTrophees();
+        DontDestroyOnLoad(this);
     }
 	
 
@@ -45,12 +45,11 @@ public class TropheesManager : MonoBehaviour {
                 else
                 {
                     child.SetActive(true);
-                    UnlockedTrophees.Add(trophee);
                 }
             }
 
         }
-        return UnlockedTrophees;
+        return Trophees;
     }
 
 

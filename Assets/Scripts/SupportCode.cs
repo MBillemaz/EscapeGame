@@ -12,7 +12,7 @@ public class SupportCode : MonoBehaviour {
     public void UpdateCodeBool()
     {
         isCodeRight = true;
-        
+       
         foreach (var child in gameObject.GetComponentsInChildren<TabletteSupport>())
         {
             if (!child.isValueCorrect)
@@ -23,8 +23,7 @@ public class SupportCode : MonoBehaviour {
     }
     
     private void CheckCode()
-    {
-
+    {    
         if (isCodeRight && !changeLoaded)
         {
             this.UnLockNextLevelTrophee();
@@ -37,7 +36,7 @@ public class SupportCode : MonoBehaviour {
     {
         Scene scene = SceneManager.GetActiveScene();
         Trophee trophee = TropheesManager.Trophees.Find(t => t.Level == scene.name);
-        Trophee nextLevelTrophee = TropheesManager.UnlockedTrophees.Find(t => t.LevelNumber == trophee.LevelNumber + 1);
+        Trophee nextLevelTrophee = TropheesManager.Trophees.Find(t => t.LevelNumber == (trophee.LevelNumber + 1));
         nextLevelTrophee.IsLocked = false;
     }
 
