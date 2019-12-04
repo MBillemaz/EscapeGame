@@ -28,10 +28,15 @@ public class TropheesManager : MonoBehaviour {
         return Trophees;
     }
 
-
+    //
+    // Get unlock trophees
+    // If trophee is unlock, hide it in scene
+    //
     public List<Trophee> GetUnlockedTrophees()
     {
+        //unlock first level trophee
         this.transform.GetChild(0).gameObject.GetComponent<Trophee>().IsLocked = false;
+        //Get all children of this gameobject
         for (int i = 0; i < this.transform.childCount; i++)
         {
             GameObject child = this.transform.GetChild(i).gameObject;
