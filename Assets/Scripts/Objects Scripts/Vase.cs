@@ -20,8 +20,9 @@ public class Vase : MonoBehaviour {
     //Check if there is a collision with our object
     void OnCollisionEnter(Collision collision)
     {
+        // Instantitate explosion effect
+        //Instantiate(explosionEffect, transform.position, Quaternion.identity);
         // Instantiate broken object
-        Instantiate(explosionEffect, transform.position, Quaternion.identity);
         GameObject fracturedVaseObj = Instantiate(fracturedVase, transform.position, Quaternion.identity);
         Rigidbody[] rigidbodies = fracturedVase.GetComponentsInChildren<Rigidbody>();
         //Add explosion effect
