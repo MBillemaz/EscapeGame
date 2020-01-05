@@ -34,6 +34,7 @@ public class RopeScript : MonoBehaviour {
             var child = parent.GetChild(i);
             var representative = new GameObject(child.gameObject.name);
             representative.transform.parent = RigidBodyContainer.transform;
+
             //rigidbody
             var childRigidbody = representative.gameObject.AddComponent<Rigidbody>();
             childRigidbody.useGravity = true;
@@ -42,7 +43,9 @@ public class RopeScript : MonoBehaviour {
             childRigidbody.mass = RigidbodyMass;
 
             //collider
-            var collider = representative.gameObject.AddComponent<Collider>();
+            var collider = representative.gameObject.AddComponent<SphereCollider>();
+            collider.center = Vector3.zero;
+            collider.radius = ColliderRadius;
 
             //DistanceJoint
             var joint = representative.gameObject.AddComponent<DistanceJoin3D>();
@@ -53,20 +56,15 @@ public class RopeScript : MonoBehaviour {
             joint.DetermineDistanceOnStart = false;
             joint.Distance = Vector3.Distance(parent.position, child.position);
 
+            //Colision Dection
+            var collision = representative.gameObject.AddComponent<CollisionScript>();
+
             //add copy source
             CopySource.Add(representative.transform);
             CopyDestination.Add(child);
 
             AddChildren(child);
         }
-    }
-
-    //Check if there is a collision with some join of the rope
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.name == "arrow")
-            //Destroy collider
-            Destroy(collision.collider.gameObject);
     }
 
     public void Update()
