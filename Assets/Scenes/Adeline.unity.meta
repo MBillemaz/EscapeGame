@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: a32d1527d66216345ba03ebce0dd0849
+=======
+guid: 1889df83dbdcc7a48b25c54cfff512a8
+>>>>>>> implement_changes_ADE
 DefaultImporter:
   externalObjects: {}
   userData: 
