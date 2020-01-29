@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RopeScript : MonoBehaviour {
+public class RopeScript : MonoBehaviour
+{
 
     public float RigidbodyMass = 1f;
-    public float ColliderRadius = 0.1f;
+    public float ColliderRadius = 1f;
     public float JointSpring = 0.1f;
-    public float JointDamper = 5f;
+    public float JointDamper = 20f;
     public Vector3 RotationOffset;
     public Vector3 PositionOffset;
 
@@ -17,9 +18,6 @@ public class RopeScript : MonoBehaviour {
 
     void Awake()
     {
-        if (RigidBodyContainer == null)
-            RigidBodyContainer = new GameObject("RopeRigidbodyContainer");
-
         CopySource = new List<Transform>();
         CopyDestination = new List<Transform>();
 
@@ -32,35 +30,33 @@ public class RopeScript : MonoBehaviour {
         for (int i = 0; i < parent.childCount; i++)
         {
             var child = parent.GetChild(i);
-            var representative = new GameObject(child.gameObject.name);
-            representative.transform.parent = RigidBodyContainer.transform;
 
             //rigidbody
-            var childRigidbody = representative.gameObject.AddComponent<Rigidbody>();
+            var childRigidbody = child.gameObject.AddComponent<Rigidbody>();
             childRigidbody.useGravity = true;
             childRigidbody.isKinematic = false;
             childRigidbody.freezeRotation = true;
             childRigidbody.mass = RigidbodyMass;
 
             //collider
-            var collider = representative.gameObject.AddComponent<SphereCollider>();
-            collider.center = Vector3.zero;
-            collider.radius = ColliderRadius;
+            var collider = child.gameObject.AddComponent<MeshCollider>();
+            //collider.center = Vector3.zero;
+            collider.convex = true;
 
             //DistanceJoint
-            var joint = representative.gameObject.AddComponent<DistanceJoin3D>();
-            joint.ConnectedRigidbody = parent;
-            joint.DetermineDistanceOnStart = true;
-            joint.Spring = JointSpring;
-            joint.Damper = JointDamper;
-            joint.DetermineDistanceOnStart = false;
-            joint.Distance = Vector3.Distance(parent.position, child.position);
+            var joint = child.gameObject.AddComponent<DistanceJoin3D>();
+            joint.connectedRigidbody = parent;
+            joint.determineDistanceOnStart = true;
+          //  joint.spring = JointSpring;
+            joint.damper = JointDamper;
+            //joint.determineDistanceOnStart = false;
+            joint.distance = Vector3.Distance(parent.position, child.position);
 
             //Colision Dection
-            var collision = representative.gameObject.AddComponent<CollisionScript>();
+            var collision = child.gameObject.AddComponent<CollisionScript>();
 
             //add copy source
-            CopySource.Add(representative.transform);
+            CopySource.Add(child.transform);
             CopyDestination.Add(child);
 
             AddChildren(child);
@@ -71,8 +67,8 @@ public class RopeScript : MonoBehaviour {
     {
         for (int i = 0; i < CopySource.Count; i++)
         {
-            CopyDestination[i].position = CopySource[i].position + PositionOffset;
-            CopyDestination[i].rotation = CopySource[i].rotation * Quaternion.Euler(RotationOffset);
+            //CopyDestination[i].position = CopySource[i].position + PositionOffset;
+            //CopyDestination[i].rotation = CopySource[i].rotation * Quaternion.Euler(RotationOffset);
         }
     }
 }

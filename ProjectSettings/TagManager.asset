@@ -9,6 +9,9 @@ TagManager:
   - Morceaux
   - buste
   - Enigme
+  - projectile
+  - FxTemporaire
+  - Cuttable
   layers:
   - Default
   - TransparentFX

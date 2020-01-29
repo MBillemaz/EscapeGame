@@ -82,8 +82,8 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void OnAttachedToHand( Hand attachedHand )
 		{
-			hand = attachedHand;
-		}
+            hand = attachedHand;
+        }
 
 
 		//-------------------------------------------------
@@ -378,11 +378,6 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		private void OnDetachedFromHand( Hand hand )
-		{
-			Destroy( gameObject );
-		}
-
 
 		//-------------------------------------------------
 		void OnDestroy()
