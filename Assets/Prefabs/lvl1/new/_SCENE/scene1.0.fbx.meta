@@ -1,0 +1,720 @@
+fileFormatVersion: 2
+guid: 4358661bd8f3bf845a9d7b2213171124
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Barre
+    100002: Bol
+    100004: Bol 1
+    100006: Bol 2
+    100008: bouchon
+    100010: Bourse
+    100012: bras_centre
+    100014: bras_droit
+    100016: bras_gauche
+    100018: Cendres
+    100020: Cendres 1
+    100022: Cendres 2
+    100024: Cendres 3
+    100026: Chaise
+    100028: chaise
+    100030: Chaise 1
+    100032: coffret
+    100034: Corde
+    100036: Cothurne
+    100038: couronne
+    100040: Coussin
+    100042: dague
+    100044: DALLE
+    100046: encrier
+    100048: Epee_kopis
+    100050: Etagere
+    100052: Etagere 1
+    100054: Feu_1
+    100056: Feu_2
+    100058: Feu_3
+    100060: Feu_4
+    100062: grappe
+    100064: JAR
+    100066: Jar
+    100068: jar_corde
+    100070: joint10
+    100072: joint11
+    100074: joint12
+    100076: joint13
+    100078: joint14
+    100080: joint15
+    100082: joint16
+    100084: joint17
+    100086: joint19
+    100088: joint19 1
+    100090: joint2
+    100092: joint20
+    100094: joint20 1
+    100096: joint21
+    100098: joint21 1
+    100100: joint22
+    100102: joint22 1
+    100104: joint23
+    100106: joint23 1
+    100108: joint24
+    100110: joint24 1
+    100112: joint25
+    100114: joint25 1
+    100116: joint26
+    100118: joint26 1
+    100120: joint27
+    100122: joint27 1
+    100124: joint28
+    100126: joint28 1
+    100128: joint29
+    100130: joint29 1
+    100132: joint3
+    100134: joint30
+    100136: joint30 1
+    100138: joint31
+    100140: joint31 1
+    100142: joint32
+    100144: joint32 1
+    100146: joint33
+    100148: joint33 1
+    100150: joint34
+    100152: joint34 1
+    100154: joint35
+    100156: joint35 1
+    100158: joint36
+    100160: joint36 1
+    100162: joint4
+    100164: joint5
+    100166: joint6
+    100168: joint7
+    100170: joint8
+    100172: joint9
+    100174: kevlar
+    100176: lance
+    100178: longue_jar1
+    100180: longue_jar3
+    100182: longue_jar4
+    100184: longue_jar5
+    100186: MUR
+    100188: MUR1
+    100190: MUR2
+    100192: MUR3
+    100194: Olpe
+    100196: Ostracon1
+    100198: Ostracon2
+    100200: Ostracon3
+    100202: Ostracon4
+    100204: Panier_de_raisin
+    100206: panier_de_raisins1
+    100208: Parchemin
+    100210: Parchemin1
+    100212: Parchemin2
+    100214: Parchemin3
+    100216: Parchemin4
+    100218: Parchemin5
+    100220: PAVES
+    100222: pCube10
+    100224: pCube11
+    100226: pCube8
+    100228: pCube9
+    100230: Pelike
+    100232: pendoir
+    100234: petite_table
+    100236: Pied
+    100238: Pied 1
+    100240: Pied 2
+    100242: PLAFOND
+    100244: PLAFOND 1
+    100246: Planches
+    100248: Plat
+    100250: plat
+    100252: plume
+    100254: polySurface1
+    100256: polySurface8
+    100258: Porte
+    100260: Pot_epices
+    100262: "pot_\xE9pices"
+    100264: pPlane1
+    100266: pPlane2
+    100268: pPlane3
+    100270: pPlane4
+    100272: Raisins_1
+    100274: Raisins_10
+    100276: Raisins_11
+    100278: Raisins_12
+    100280: Raisins_13
+    100282: Raisins_14
+    100284: Raisins_15
+    100286: Raisins_16
+    100288: Raisins_17
+    100290: Raisins_18
+    100292: Raisins_19
+    100294: Raisins_2
+    100296: Raisins_3
+    100298: Raisins_4
+    100300: Raisins_5
+    100302: Raisins_6
+    100304: Raisins_7
+    100306: Raisins_8
+    100308: Raisins_9
+    100310: //RootNode
+    100312: surface
+    100314: table_marbre
+    100316: TAPI
+    100318: Tapis
+    100320: Tapisserie
+    100322: tapisserie
+    100324: tissu_etagere_1
+    100326: verre
+    100328: Volet
+    400000: Barre
+    400002: Bol
+    400004: Bol 1
+    400006: Bol 2
+    400008: bouchon
+    400010: Bourse
+    400012: bras_centre
+    400014: bras_droit
+    400016: bras_gauche
+    400018: Cendres
+    400020: Cendres 1
+    400022: Cendres 2
+    400024: Cendres 3
+    400026: Chaise
+    400028: chaise
+    400030: Chaise 1
+    400032: coffret
+    400034: Corde
+    400036: Cothurne
+    400038: couronne
+    400040: Coussin
+    400042: dague
+    400044: DALLE
+    400046: encrier
+    400048: Epee_kopis
+    400050: Etagere
+    400052: Etagere 1
+    400054: Feu_1
+    400056: Feu_2
+    400058: Feu_3
+    400060: Feu_4
+    400062: grappe
+    400064: JAR
+    400066: Jar
+    400068: jar_corde
+    400070: joint10
+    400072: joint11
+    400074: joint12
+    400076: joint13
+    400078: joint14
+    400080: joint15
+    400082: joint16
+    400084: joint17
+    400086: joint19
+    400088: joint19 1
+    400090: joint2
+    400092: joint20
+    400094: joint20 1
+    400096: joint21
+    400098: joint21 1
+    400100: joint22
+    400102: joint22 1
+    400104: joint23
+    400106: joint23 1
+    400108: joint24
+    400110: joint24 1
+    400112: joint25
+    400114: joint25 1
+    400116: joint26
+    400118: joint26 1
+    400120: joint27
+    400122: joint27 1
+    400124: joint28
+    400126: joint28 1
+    400128: joint29
+    400130: joint29 1
+    400132: joint3
+    400134: joint30
+    400136: joint30 1
+    400138: joint31
+    400140: joint31 1
+    400142: joint32
+    400144: joint32 1
+    400146: joint33
+    400148: joint33 1
+    400150: joint34
+    400152: joint34 1
+    400154: joint35
+    400156: joint35 1
+    400158: joint36
+    400160: joint36 1
+    400162: joint4
+    400164: joint5
+    400166: joint6
+    400168: joint7
+    400170: joint8
+    400172: joint9
+    400174: kevlar
+    400176: lance
+    400178: longue_jar1
+    400180: longue_jar3
+    400182: longue_jar4
+    400184: longue_jar5
+    400186: MUR
+    400188: MUR1
+    400190: MUR2
+    400192: MUR3
+    400194: Olpe
+    400196: Ostracon1
+    400198: Ostracon2
+    400200: Ostracon3
+    400202: Ostracon4
+    400204: Panier_de_raisin
+    400206: panier_de_raisins1
+    400208: Parchemin
+    400210: Parchemin1
+    400212: Parchemin2
+    400214: Parchemin3
+    400216: Parchemin4
+    400218: Parchemin5
+    400220: PAVES
+    400222: pCube10
+    400224: pCube11
+    400226: pCube8
+    400228: pCube9
+    400230: Pelike
+    400232: pendoir
+    400234: petite_table
+    400236: Pied
+    400238: Pied 1
+    400240: Pied 2
+    400242: PLAFOND
+    400244: PLAFOND 1
+    400246: Planches
+    400248: Plat
+    400250: plat
+    400252: plume
+    400254: polySurface1
+    400256: polySurface8
+    400258: Porte
+    400260: Pot_epices
+    400262: "pot_\xE9pices"
+    400264: pPlane1
+    400266: pPlane2
+    400268: pPlane3
+    400270: pPlane4
+    400272: Raisins_1
+    400274: Raisins_10
+    400276: Raisins_11
+    400278: Raisins_12
+    400280: Raisins_13
+    400282: Raisins_14
+    400284: Raisins_15
+    400286: Raisins_16
+    400288: Raisins_17
+    400290: Raisins_18
+    400292: Raisins_19
+    400294: Raisins_2
+    400296: Raisins_3
+    400298: Raisins_4
+    400300: Raisins_5
+    400302: Raisins_6
+    400304: Raisins_7
+    400306: Raisins_8
+    400308: Raisins_9
+    400310: //RootNode
+    400312: surface
+    400314: table_marbre
+    400316: TAPI
+    400318: Tapis
+    400320: Tapisserie
+    400322: tapisserie
+    400324: tissu_etagere_1
+    400326: verre
+    400328: Volet
+    2100000: lambert2
+    2100002: lambert14
+    2100004: lambert13
+    2100006: lambert12
+    2100008: lambert11
+    2100010: lambert10
+    2100012: lambert9
+    2100014: lambert8
+    2100016: lambert7
+    2100018: lambert6
+    2100020: lambert5
+    2100022: lambert4
+    2100024: lambert3
+    2100026: aiStandardSurface1
+    2300000: Barre
+    2300002: Bol
+    2300004: Bol 1
+    2300006: Bol 2
+    2300008: bouchon
+    2300010: Bourse
+    2300012: Cendres
+    2300014: Cendres 1
+    2300016: Cendres 2
+    2300018: Cendres 3
+    2300020: chaise
+    2300022: Chaise 1
+    2300024: Corde
+    2300026: Cothurne
+    2300028: couronne
+    2300030: Coussin
+    2300032: dague
+    2300034: DALLE
+    2300036: encrier
+    2300038: Epee_kopis
+    2300040: Etagere 1
+    2300042: grappe
+    2300044: JAR
+    2300046: jar_corde
+    2300048: kevlar
+    2300050: lance
+    2300052: longue_jar1
+    2300054: longue_jar3
+    2300056: longue_jar4
+    2300058: longue_jar5
+    2300060: MUR
+    2300062: MUR1
+    2300064: MUR2
+    2300066: MUR3
+    2300068: Olpe
+    2300070: Ostracon1
+    2300072: Ostracon2
+    2300074: Ostracon3
+    2300076: Ostracon4
+    2300078: panier_de_raisins1
+    2300080: Parchemin
+    2300082: Parchemin1
+    2300084: Parchemin2
+    2300086: Parchemin3
+    2300088: Parchemin4
+    2300090: Parchemin5
+    2300092: PAVES
+    2300094: pCube10
+    2300096: pCube11
+    2300098: pCube8
+    2300100: pCube9
+    2300102: Pelike
+    2300104: pendoir
+    2300106: petite_table
+    2300108: Pied
+    2300110: Pied 1
+    2300112: Pied 2
+    2300114: PLAFOND 1
+    2300116: Planches
+    2300118: Plat
+    2300120: plat
+    2300122: plume
+    2300124: polySurface1
+    2300126: polySurface8
+    2300128: Porte
+    2300130: "pot_\xE9pices"
+    2300132: pPlane1
+    2300134: pPlane2
+    2300136: pPlane3
+    2300138: pPlane4
+    2300140: Raisins_1
+    2300142: Raisins_10
+    2300144: Raisins_11
+    2300146: Raisins_12
+    2300148: Raisins_13
+    2300150: Raisins_14
+    2300152: Raisins_15
+    2300154: Raisins_16
+    2300156: Raisins_17
+    2300158: Raisins_18
+    2300160: Raisins_19
+    2300162: Raisins_2
+    2300164: Raisins_3
+    2300166: Raisins_4
+    2300168: Raisins_5
+    2300170: Raisins_6
+    2300172: Raisins_7
+    2300174: Raisins_8
+    2300176: Raisins_9
+    2300178: surface
+    2300180: table_marbre
+    2300182: Tapis
+    2300184: Tapisserie
+    2300186: tissu_etagere_1
+    2300188: verre
+    2300190: Volet
+    3300000: Barre
+    3300002: Bol
+    3300004: Bol 1
+    3300006: Bol 2
+    3300008: bouchon
+    3300010: Bourse
+    3300012: Cendres
+    3300014: Cendres 1
+    3300016: Cendres 2
+    3300018: Cendres 3
+    3300020: chaise
+    3300022: Chaise 1
+    3300024: Corde
+    3300026: Cothurne
+    3300028: couronne
+    3300030: Coussin
+    3300032: dague
+    3300034: DALLE
+    3300036: encrier
+    3300038: Epee_kopis
+    3300040: Etagere 1
+    3300042: grappe
+    3300044: JAR
+    3300046: jar_corde
+    3300048: kevlar
+    3300050: lance
+    3300052: longue_jar1
+    3300054: longue_jar3
+    3300056: longue_jar4
+    3300058: longue_jar5
+    3300060: MUR
+    3300062: MUR1
+    3300064: MUR2
+    3300066: MUR3
+    3300068: Olpe
+    3300070: Ostracon1
+    3300072: Ostracon2
+    3300074: Ostracon3
+    3300076: Ostracon4
+    3300078: panier_de_raisins1
+    3300080: Parchemin
+    3300082: Parchemin1
+    3300084: Parchemin2
+    3300086: Parchemin3
+    3300088: Parchemin4
+    3300090: Parchemin5
+    3300092: PAVES
+    3300094: pCube10
+    3300096: pCube11
+    3300098: pCube8
+    3300100: pCube9
+    3300102: Pelike
+    3300104: pendoir
+    3300106: petite_table
+    3300108: Pied
+    3300110: Pied 1
+    3300112: Pied 2
+    3300114: PLAFOND 1
+    3300116: Planches
+    3300118: Plat
+    3300120: plat
+    3300122: plume
+    3300124: polySurface1
+    3300126: polySurface8
+    3300128: Porte
+    3300130: "pot_\xE9pices"
+    3300132: pPlane1
+    3300134: pPlane2
+    3300136: pPlane3
+    3300138: pPlane4
+    3300140: Raisins_1
+    3300142: Raisins_10
+    3300144: Raisins_11
+    3300146: Raisins_12
+    3300148: Raisins_13
+    3300150: Raisins_14
+    3300152: Raisins_15
+    3300154: Raisins_16
+    3300156: Raisins_17
+    3300158: Raisins_18
+    3300160: Raisins_19
+    3300162: Raisins_2
+    3300164: Raisins_3
+    3300166: Raisins_4
+    3300168: Raisins_5
+    3300170: Raisins_6
+    3300172: Raisins_7
+    3300174: Raisins_8
+    3300176: Raisins_9
+    3300178: surface
+    3300180: table_marbre
+    3300182: Tapis
+    3300184: Tapisserie
+    3300186: tissu_etagere_1
+    3300188: verre
+    3300190: Volet
+    4300000: MUR3
+    4300002: pPlane4
+    4300004: Parchemin5
+    4300006: Parchemin4
+    4300008: Parchemin3
+    4300010: Parchemin2
+    4300012: longue_jar5
+    4300014: grappe
+    4300016: plume
+    4300018: encrier
+    4300020: petite_table
+    4300022: dague
+    4300024: couronne
+    4300026: polySurface1
+    4300028: polySurface8
+    4300030: chaise
+    4300032: kevlar
+    4300034: pendoir
+    4300036: table_marbre
+    4300038: Ostracon4
+    4300040: Ostracon3
+    4300042: Ostracon2
+    4300044: Ostracon1
+    4300046: Volet
+    4300048: pPlane3
+    4300050: MUR2
+    4300052: MUR1
+    4300054: pPlane2
+    4300056: pPlane1
+    4300058: Cothurne
+    4300060: Tapis
+    4300062: Epee_kopis
+    4300064: panier_de_raisins1
+    4300066: Raisins_19
+    4300068: Raisins_18
+    4300070: Raisins_17
+    4300072: Raisins_16
+    4300074: Raisins_15
+    4300076: Raisins_14
+    4300078: Raisins_13
+    4300080: Raisins_12
+    4300082: Raisins_11
+    4300084: Raisins_10
+    4300086: Raisins_9
+    4300088: Raisins_8
+    4300090: Raisins_7
+    4300092: Raisins_6
+    4300094: Raisins_5
+    4300096: Raisins_4
+    4300098: Raisins_3
+    4300100: Raisins_2
+    4300102: Raisins_1
+    4300104: tissu_etagere_1
+    4300106: Parchemin1
+    4300108: Parchemin
+    4300110: lance
+    4300112: verre
+    4300114: plat
+    4300116: Bourse
+    4300118: jar_corde
+    4300120: Olpe
+    4300122: JAR
+    4300124: Pelike
+    4300126: Tapisserie
+    4300128: Barre
+    4300130: Etagere
+    4300132: Planches
+    4300134: Chaise
+    4300136: Coussin
+    4300138: Corde
+    4300140: longue_jar1
+    4300142: longue_jar3
+    4300144: longue_jar4
+    4300146: bouchon
+    4300148: "pot_\xE9pices"
+    4300150: Pied
+    4300152: Bol
+    4300154: Cendres
+    4300156: Pied
+    4300158: Bol
+    4300160: Cendres
+    4300162: Pied
+    4300164: Bol
+    4300166: Cendres
+    4300168: Plat
+    4300170: Cendres
+    4300172: surface
+    4300174: pCube11
+    4300176: pCube10
+    4300178: pCube9
+    4300180: pCube8
+    4300182: PLAFOND
+    4300184: Porte
+    4300186: PAVES
+    4300188: DALLE
+    4300190: MUR
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

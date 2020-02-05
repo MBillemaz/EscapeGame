@@ -1,0 +1,190 @@
+fileFormatVersion: 2
+guid: de7d6f0ff53a2e44994b16589af6f7c2
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: panier_de_raisins1
+    100002: //RootNode
+    100004: Raisins_1
+    100006: Raisins_10
+    100008: Raisins_11
+    100010: Raisins_12
+    100012: Raisins_13
+    100014: Raisins_14
+    100016: Raisins_15
+    100018: Raisins_16
+    100020: Raisins_17
+    100022: Raisins_18
+    100024: Raisins_19
+    100026: Raisins_2
+    100028: Raisins_3
+    100030: Raisins_4
+    100032: Raisins_5
+    100034: Raisins_6
+    100036: Raisins_7
+    100038: Raisins_8
+    100040: Raisins_9
+    400000: panier_de_raisins1
+    400002: //RootNode
+    400004: Raisins_1
+    400006: Raisins_10
+    400008: Raisins_11
+    400010: Raisins_12
+    400012: Raisins_13
+    400014: Raisins_14
+    400016: Raisins_15
+    400018: Raisins_16
+    400020: Raisins_17
+    400022: Raisins_18
+    400024: Raisins_19
+    400026: Raisins_2
+    400028: Raisins_3
+    400030: Raisins_4
+    400032: Raisins_5
+    400034: Raisins_6
+    400036: Raisins_7
+    400038: Raisins_8
+    400040: Raisins_9
+    2100000: lambert1
+    2300000: panier_de_raisins1
+    2300002: Raisins_1
+    2300004: Raisins_10
+    2300006: Raisins_11
+    2300008: Raisins_12
+    2300010: Raisins_13
+    2300012: Raisins_14
+    2300014: Raisins_15
+    2300016: Raisins_16
+    2300018: Raisins_17
+    2300020: Raisins_18
+    2300022: Raisins_19
+    2300024: Raisins_2
+    2300026: Raisins_3
+    2300028: Raisins_4
+    2300030: Raisins_5
+    2300032: Raisins_6
+    2300034: Raisins_7
+    2300036: Raisins_8
+    2300038: Raisins_9
+    3300000: panier_de_raisins1
+    3300002: Raisins_1
+    3300004: Raisins_10
+    3300006: Raisins_11
+    3300008: Raisins_12
+    3300010: Raisins_13
+    3300012: Raisins_14
+    3300014: Raisins_15
+    3300016: Raisins_16
+    3300018: Raisins_17
+    3300020: Raisins_18
+    3300022: Raisins_19
+    3300024: Raisins_2
+    3300026: Raisins_3
+    3300028: Raisins_4
+    3300030: Raisins_5
+    3300032: Raisins_6
+    3300034: Raisins_7
+    3300036: Raisins_8
+    3300038: Raisins_9
+    4300000: panier_de_raisins1
+    4300002: Raisins_19
+    4300004: Raisins_18
+    4300006: Raisins_17
+    4300008: Raisins_16
+    4300010: Raisins_15
+    4300012: Raisins_14
+    4300014: Raisins_13
+    4300016: Raisins_12
+    4300018: Raisins_11
+    4300020: Raisins_10
+    4300022: Raisins_9
+    4300024: Raisins_8
+    4300026: Raisins_7
+    4300028: Raisins_6
+    4300030: Raisins_5
+    4300032: Raisins_4
+    4300034: Raisins_3
+    4300036: Raisins_2
+    4300038: Raisins_1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
