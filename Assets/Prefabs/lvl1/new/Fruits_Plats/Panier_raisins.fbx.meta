@@ -106,6 +106,26 @@ ModelImporter:
     4300034: Raisins_3
     4300036: Raisins_2
     4300038: Raisins_1
+    6400000: panier_de_raisins1
+    6400002: Raisins_1
+    6400004: Raisins_10
+    6400006: Raisins_11
+    6400008: Raisins_12
+    6400010: Raisins_13
+    6400012: Raisins_14
+    6400014: Raisins_15
+    6400016: Raisins_16
+    6400018: Raisins_17
+    6400020: Raisins_18
+    6400022: Raisins_19
+    6400024: Raisins_2
+    6400026: Raisins_3
+    6400028: Raisins_4
+    6400030: Raisins_5
+    6400032: Raisins_6
+    6400034: Raisins_7
+    6400036: Raisins_8
+    6400038: Raisins_9
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -139,7 +159,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
