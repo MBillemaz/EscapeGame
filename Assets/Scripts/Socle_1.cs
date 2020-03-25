@@ -23,11 +23,12 @@ public class Socle_1 : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
+        /*if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
         {
             //TotalForce = 0;
         }
-        else
+        else*/
+        if(col.gameObject.name != "Pilier" && col.gameObject.name != "Pied") // AR Remise à neuf de la balance
         {
             ForceVariable = col.rigidbody.mass;
             TotalForce = ForceVariable + TotalForce;
@@ -36,11 +37,12 @@ public class Socle_1 : MonoBehaviour {
 
     void OnCollisionExit(Collision col)
     {
-        if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
+        /*if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
         {
            // TotalForce = 0;
         }
-        else
+        else*/
+        if(col.gameObject.name != "Pilier" && col.gameObject.name != "Pied") // AR Remise à neuf de la balance
         {
             ForceVariable = col.rigidbody.mass;
             TotalForce = TotalForce - ForceVariable;
