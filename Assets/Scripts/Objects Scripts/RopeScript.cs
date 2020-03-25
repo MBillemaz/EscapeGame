@@ -6,23 +6,23 @@ public class RopeScript : MonoBehaviour
 {
 
     public float RigidbodyMass = 1f;
-    public float ColliderRadius = 1f;
+    public float ColliderRadius = 0.1f;
     public float JointSpring = 0.1f;
     public float JointDamper = 20f;
     public Vector3 RotationOffset;
     public Vector3 PositionOffset;
-
+    public GameObject ropeModel;
     protected List<Transform> CopySource;
     protected List<Transform> CopyDestination;
     protected static GameObject RigidBodyContainer;
 
-    void Awake()
+    void Start()
     {
         CopySource = new List<Transform>();
         CopyDestination = new List<Transform>();
-
         //add children
         AddChildren(transform);
+        Debug.Log("Ajout corde");
     }
 
     private void AddChildren(Transform parent)
@@ -38,22 +38,24 @@ public class RopeScript : MonoBehaviour
             childRigidbody.freezeRotation = true;
             childRigidbody.mass = RigidbodyMass;
 
-            //collider
-            var collider = child.gameObject.AddComponent<MeshCollider>();
-            //collider.center = Vector3.zero;
-            collider.convex = true;
+            //add sphere collider
+            var collider = child.gameObject.AddComponent<SphereCollider>();
+
+            collider.center = Vector3.zero;
+            collider.radius = ColliderRadius;
 
             //DistanceJoint
             var joint = child.gameObject.AddComponent<DistanceJoin3D>();
             joint.connectedRigidbody = parent;
             joint.determineDistanceOnStart = true;
-          //  joint.spring = JointSpring;
+            joint.spring = JointSpring;
             joint.damper = JointDamper;
-            //joint.determineDistanceOnStart = false;
+            joint.determineDistanceOnStart = false;
             joint.distance = Vector3.Distance(parent.position, child.position);
 
             //Colision Dection
             var collision = child.gameObject.AddComponent<CollisionScript>();
+            collision.ropeModel = ropeModel;
 
             //add copy source
             CopySource.Add(child.transform);
@@ -67,8 +69,8 @@ public class RopeScript : MonoBehaviour
     {
         for (int i = 0; i < CopySource.Count; i++)
         {
-            //CopyDestination[i].position = CopySource[i].position + PositionOffset;
-            //CopyDestination[i].rotation = CopySource[i].rotation * Quaternion.Euler(RotationOffset);
+            CopyDestination[i].position = CopySource[i].position + PositionOffset;
+            CopyDestination[i].rotation = CopySource[i].rotation * Quaternion.Euler(RotationOffset);
         }
     }
 }

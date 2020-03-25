@@ -16,9 +16,13 @@ public class Cutter : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         GameObject victim = collision.collider.gameObject;
-        if(victim.tag == cuttableTag)
+        if (victim.tag == cuttableTag)
         {
-            this.cutMaterial = this.cutMaterial != null ? this.cutMaterial : collision.collider.GetComponent<MeshRenderer>().sharedMaterials[0];
+            Material material = collision.collider.GetComponent<SkinnedMeshRenderer>() ? 
+                collision.collider.GetComponent<SkinnedMeshRenderer>().sharedMaterials[0] : 
+                collision.collider.GetComponent<MeshRenderer>().sharedMaterials[0];
+            
+            this.cutMaterial = this.cutMaterial != null ? this.cutMaterial : material;
             Mesh_Cutter.Cut(victim, transform.position, transform.right, this.cutMaterial, fill, addRigibody);
             StopCutting();
         }

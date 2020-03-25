@@ -7,11 +7,11 @@ public class Mesh_Cutter
 
     public static bool currentlyCutting;
     public static Mesh originalMesh;
-    public static void Cut(GameObject _originalGameObject, Vector3 _contactPoint, Vector3 _direction, Material _cutMaterial = null, bool fill = true, bool _addRigigibody = false)
+    public static GameObject Cut(GameObject _originalGameObject, Vector3 _contactPoint, Vector3 _direction, Material _cutMaterial = null, bool fill = true, bool _addRigigibody = false)
     {
         if (currentlyCutting)
         {
-            return;
+            return null;
         }
         currentlyCutting = true;
 
@@ -21,7 +21,7 @@ public class Mesh_Cutter
             _originalGameObject.transform.InverseTransformPoint(_contactPoint));
 
         //get the victims mesh
-        originalMesh = _originalGameObject.GetComponent<MeshFilter>().mesh;
+        originalMesh = _originalGameObject.GetComponent<MeshFilter>() ? _originalGameObject.GetComponent<MeshFilter>().mesh : _originalGameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh;
 
         //List for added vertices
         List<Vector3> addedVertices = new List<Vector3>();
@@ -68,45 +68,75 @@ public class Mesh_Cutter
         }
 
         // Get Materials to apply to the new objects
-        Material[] mats = _originalGameObject.GetComponent<MeshRenderer>().sharedMaterials;
+        Material[] mats ;
+
+        if (_originalGameObject.GetComponent<MeshRenderer>())
+        {
+            mats = _originalGameObject.GetComponent<MeshRenderer>().sharedMaterials;
+        }
+        else
+        {
+           mats = _originalGameObject.GetComponent<SkinnedMeshRenderer>().sharedMaterials;
+        }
 
         // if there is a material to fill the cut add it to materials list
         if (_cutMaterial)
         {
             if (mats[mats.Length - 1].name != _cutMaterial.name)
             {
-                Material[] newMats = new Material[mats.Length + 1];
-                mats.CopyTo(newMats, 0);
-                newMats[mats.Length] = _cutMaterial;
-                mats = newMats;
+                Material[] newmats = new Material[mats.Length + 1];
+                mats.CopyTo(newmats, 0);
+                newmats[mats.Length] = _cutMaterial;
+                mats = newmats;
             }
         }
-        originalMesh.subMeshCount = mats.Length - 1;
+        int submeshCount = mats.Length - 1;
 
         if (fill)
         {
             // fill the opennings
-            FillCut(addedVertices, plane, leftMesh, rightMesh);
+            FillCut(addedVertices, plane, leftMesh, rightMesh, submeshCount);
         }
 
-        // Left Mesh
+        //// Left Mesh
         Mesh left_HalfMesh = leftMesh.GetMesh();
         left_HalfMesh.name = "Split Mesh Left";
 
-        // Right Mesh
+        //// Right Mesh
         Mesh right_HalfMesh = rightMesh.GetMesh();
         right_HalfMesh.name = "Split Mesh Right";
 
-        // assign the game objects
+        //// assign the game objects
 
-        _originalGameObject.GetComponent<MeshFilter>().mesh = left_HalfMesh;
+        if (_originalGameObject.GetComponent<MeshFilter>())
+        {
+            _originalGameObject.GetComponent<MeshFilter>().mesh = left_HalfMesh;
+        }
+        else
+        {
+
+            _originalGameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh = left_HalfMesh;
+        }
+
 
         GameObject leftSideObj = _originalGameObject;
+        GameObject rightSideObj = null;
+        if (_originalGameObject.GetComponent<MeshRenderer>())
+        {
+            rightSideObj = new GameObject("right side", typeof(MeshFilter), typeof(MeshRenderer));
+            rightSideObj.transform.position = _originalGameObject.transform.position;
+            rightSideObj.transform.rotation = _originalGameObject.transform.rotation;
+            rightSideObj.GetComponent<MeshFilter>().mesh = right_HalfMesh;
+        }
+        else if (_originalGameObject.GetComponent<SkinnedMeshRenderer>())
+        {
+            rightSideObj = new GameObject("right side");
+            SkinnedMeshRenderer skinMesh = rightSideObj.AddComponent<SkinnedMeshRenderer>();
+            rightSideObj.transform.position = _originalGameObject.transform.position;
+            rightSideObj.transform.rotation = _originalGameObject.transform.rotation;
+            skinMesh.sharedMesh = right_HalfMesh;
+        }
 
-        GameObject rightSideObj = new GameObject("right side", typeof(MeshFilter), typeof(MeshRenderer));
-        rightSideObj.transform.position = _originalGameObject.transform.position;
-        rightSideObj.transform.rotation = _originalGameObject.transform.rotation;
-        rightSideObj.GetComponent<MeshFilter>().mesh = right_HalfMesh;
 
         if (_originalGameObject.transform.parent != null)
         {
@@ -123,8 +153,22 @@ public class Mesh_Cutter
         }
 
         // assign materials
-        leftSideObj.GetComponent<MeshRenderer>().materials = mats;
-        rightSideObj.GetComponent<MeshRenderer>().materials = mats;
+
+        if (_originalGameObject.GetComponent<MeshRenderer>())
+        {
+
+            leftSideObj.GetComponent<MeshRenderer>().materials = mats;
+            rightSideObj.GetComponent<MeshRenderer>().materials = mats;
+        }
+        else if (_originalGameObject.GetComponent<SkinnedMeshRenderer>())
+        {
+            leftSideObj.GetComponent<SkinnedMeshRenderer>().materials = mats;
+            rightSideObj.GetComponent<SkinnedMeshRenderer>().materials = mats;
+        }
+
+        return rightSideObj;
+
+
     }
 
 
@@ -304,7 +348,7 @@ public class Mesh_Cutter
 
     }
 
-    public static void FillCut(List<Vector3> _addedVertices, Plane _plane, GeneratedMesh _leftMesh, GeneratedMesh _rightMesh)
+    public static void FillCut(List<Vector3> _addedVertices, Plane _plane, GeneratedMesh _leftMesh, GeneratedMesh _rightMesh, int submeshCount)
     {
         List<Vector3> vertices = new List<Vector3>();
         List<Vector3> polygone = new List<Vector3>();
@@ -327,7 +371,7 @@ public class Mesh_Cutter
                 vertices.Add(_addedVertices[i + 1]);
 
                 EvaluatePairs(_addedVertices, vertices, polygone);
-                Fill(polygone, _plane, _leftMesh, _rightMesh);
+                Fill(polygone, _plane, _leftMesh, _rightMesh, submeshCount);
             }
         }
     }
@@ -359,8 +403,8 @@ public class Mesh_Cutter
 
     }
 
-
-    public static void Fill(List<Vector3> _vertices, Plane _plane, GeneratedMesh _leftMesh, GeneratedMesh _rightMesh)
+    // Fill holl when cutting the triangle
+    public static void Fill(List<Vector3> _vertices, Plane _plane, GeneratedMesh _leftMesh, GeneratedMesh _rightMesh, int submeshCount)
     {
         // center of the filling
         Vector3 centerPosition = Vector3.zero;
@@ -406,8 +450,8 @@ public class Mesh_Cutter
             Vector3[] vertices = new Vector3[] { _vertices[i], _vertices[(i + 1) % _vertices.Count], centerPosition };
             Vector3[] normals = new Vector3[] { -_plane.normal, -_plane.normal, -_plane.normal };
             Vector2[] uvs = new Vector2[] { uv1, uv2, new Vector2(0.5f, 0.5f) };
-
-            MeshTriangle currentTriangle = new MeshTriangle(vertices, normals, uvs, originalMesh.subMeshCount);
+            //Update current triangle
+            MeshTriangle currentTriangle = new MeshTriangle(vertices, normals, uvs, submeshCount);
 
             // check if it is facing the right way
             FacingCheck(currentTriangle);
@@ -415,7 +459,7 @@ public class Mesh_Cutter
             _leftMesh.AddTriangle(currentTriangle);
 
             normals = new Vector3[] { _plane.normal, _plane.normal, _plane.normal };
-            currentTriangle = new MeshTriangle(vertices, normals, uvs, originalMesh.subMeshCount);
+            currentTriangle = new MeshTriangle(vertices, normals, uvs, submeshCount);
 
             // check if it is facing the right way
             FacingCheck(currentTriangle);
@@ -425,7 +469,7 @@ public class Mesh_Cutter
 
     }
 
-
+    // Check each triangle facing, if not facing right, replace triangle on the right side
     private static void FacingCheck(MeshTriangle _triangle)
     {
         Vector3 crossProduct = Vector3.Cross(_triangle.Vertices[1] - _triangle.Vertices[0], _triangle.Vertices[2] - _triangle.Vertices[0]);
@@ -433,14 +477,17 @@ public class Mesh_Cutter
         float dotProduct = Vector3.Dot(averageNormal, crossProduct);
         if (dotProduct < 0)
         {
+            // Replace Vertices
             Vector3 temp = _triangle.Vertices[2];
             _triangle.Vertices[2] = _triangle.Vertices[0];
             _triangle.Vertices[0] = temp;
 
+            // Replace Normals
             temp = _triangle.Normals[2];
             _triangle.Normals[2] = _triangle.Normals[0];
             _triangle.Normals[0] = temp;
 
+            // Replace UV
             Vector2 temp2 = _triangle.Uvs[2];
             _triangle.Uvs[2] = _triangle.Uvs[0];
             _triangle.Uvs[0] = temp2;
