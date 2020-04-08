@@ -81,7 +81,7 @@ public class SkinnedCollisionHelper : MonoBehaviour {
         Debug.Log("Baked mesh bounds: " + bakedMesh.bounds.ToString());
 
         // Selecting part and destroying MeshCollider in case there is one.
-        GameObject child = transform.FindChild(name).gameObject;
+        GameObject child = transform.Find(name).gameObject;
         DestroyImmediate(child.GetComponent<MeshCollider>());
 
         // Adding MeshCollider and assigning the bakedMesh.

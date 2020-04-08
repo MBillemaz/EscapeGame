@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class RopeScript : MonoBehaviour
 {
+    private enum ColliderType { 
+     MeshCollider,
+     SphereCollider
+    }
+
+    private enum Join
+    {
+        DistanceJoin,
+        HingeJoin
+    }
+
 
     public float RigidbodyMass = 1f;
     public float ColliderRadius = 0.1f;
@@ -12,6 +23,8 @@ public class RopeScript : MonoBehaviour
     public Vector3 RotationOffset;
     public Vector3 PositionOffset;
     public GameObject ropeModel;
+    [SerializeField] Join joinType;
+    [SerializeField] ColliderType colliderType;
     protected List<Transform> CopySource;
     protected List<Transform> CopyDestination;
     protected static GameObject RigidBodyContainer;
@@ -22,7 +35,6 @@ public class RopeScript : MonoBehaviour
         CopyDestination = new List<Transform>();
         //add children
         AddChildren(transform);
-        Debug.Log("Ajout corde");
     }
 
     private void AddChildren(Transform parent)
@@ -38,20 +50,41 @@ public class RopeScript : MonoBehaviour
             childRigidbody.freezeRotation = true;
             childRigidbody.mass = RigidbodyMass;
 
-            //add sphere collider
-            var collider = child.gameObject.AddComponent<SphereCollider>();
+            //add sphere collider or mesh collider
+            if(colliderType == ColliderType.SphereCollider)
+            {
+                var collider = child.gameObject.AddComponent<SphereCollider>();
+                collider.center = Vector3.zero;
+                collider.radius = ColliderRadius;
+            }
+            else
+            {
+                var collider = child.gameObject.AddComponent<MeshCollider>();
+                collider.convex = true;
+            }
 
-            collider.center = Vector3.zero;
-            collider.radius = ColliderRadius;
 
             //DistanceJoint
-            var joint = child.gameObject.AddComponent<DistanceJoin3D>();
-            joint.connectedRigidbody = parent;
-            joint.determineDistanceOnStart = true;
-            joint.spring = JointSpring;
-            joint.damper = JointDamper;
-            joint.determineDistanceOnStart = false;
-            joint.distance = Vector3.Distance(parent.position, child.position);
+            if(joinType == Join.DistanceJoin)
+            {
+                var joint = child.gameObject.AddComponent<DistanceJoin3D>();
+                joint.connectedRigidbody = parent;
+                joint.determineDistanceOnStart = true;
+                joint.spring = JointSpring;
+                joint.damper = JointDamper;
+                joint.determineDistanceOnStart = false;
+                joint.distance = Vector3.Distance(child.position, parent.position);
+            } else
+            {
+                var joint = child.gameObject.AddComponent<CharacterJoint>();
+                joint.connectedBody = parent.GetComponent<Rigidbody>();
+                SoftJointLimitSpring softJointLimit = joint.twistLimitSpring;
+                softJointLimit.damper = JointDamper;
+                softJointLimit.spring = JointSpring;
+                childRigidbody.freezeRotation = false;
+
+            }        
+
 
             //Colision Dection
             var collision = child.gameObject.AddComponent<CollisionScript>();
