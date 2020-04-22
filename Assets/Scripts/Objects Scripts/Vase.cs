@@ -23,7 +23,6 @@ public class Vase : MonoBehaviour {
     {
         if( !hasCollide)
         {
-            Debug.Log("Collision:" + collision.collider.gameObject.name);
             // Instantitate explosion effect
             //Instantiate(explosionEffect, transform.position, Quaternion.identity);
 

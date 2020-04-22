@@ -25,6 +25,7 @@ public class RopeScript : MonoBehaviour
     public GameObject ropeModel;
     [SerializeField] Join joinType;
     [SerializeField] ColliderType colliderType;
+    public bool Gravity = true;
     protected List<Transform> CopySource;
     protected List<Transform> CopyDestination;
     protected static GameObject RigidBodyContainer;
@@ -45,7 +46,7 @@ public class RopeScript : MonoBehaviour
 
             //rigidbody
             var childRigidbody = child.gameObject.AddComponent<Rigidbody>();
-            childRigidbody.useGravity = true;
+            childRigidbody.useGravity = Gravity;
             childRigidbody.isKinematic = false;
             childRigidbody.freezeRotation = true;
             childRigidbody.mass = RigidbodyMass;
