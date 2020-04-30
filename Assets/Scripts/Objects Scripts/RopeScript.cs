@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class RopeScript : MonoBehaviour
 {
     private enum ColliderType { 
      MeshCollider,
-     SphereCollider
+     SphereCollider,
+     CapsuleCollider
     }
 
     private enum Join
@@ -16,19 +18,17 @@ public class RopeScript : MonoBehaviour
     }
 
 
-    public float RigidbodyMass = 1f;
-    public float ColliderRadius = 0.1f;
-    public float JointSpring = 0.1f;
-    public float JointDamper = 20f;
-    public Vector3 RotationOffset;
-    public Vector3 PositionOffset;
-    public GameObject ropeModel;
+    [SerializeField] float RigidbodyMass = 1f;
+    [SerializeField] float ColliderRadius = 0.1f;
+    [SerializeField] float JointSpring = 0.1f;
+    [SerializeField] float JointDamper = 20f;
+    [SerializeField] Vector3 RotationOffset;
+    [SerializeField] Vector3 PositionOffset;
     [SerializeField] Join joinType;
     [SerializeField] ColliderType colliderType;
-    public bool Gravity = true;
-    protected List<Transform> CopySource;
-    protected List<Transform> CopyDestination;
-    protected static GameObject RigidBodyContainer;
+    [SerializeField] bool Gravity = true;
+    private List<Transform> CopySource;
+    private List<Transform> CopyDestination;
 
     void Start()
     {
@@ -44,12 +44,6 @@ public class RopeScript : MonoBehaviour
         {
             var child = parent.GetChild(i);
 
-            //rigidbody
-            var childRigidbody = child.gameObject.AddComponent<Rigidbody>();
-            childRigidbody.useGravity = Gravity;
-            childRigidbody.isKinematic = false;
-            childRigidbody.freezeRotation = true;
-            childRigidbody.mass = RigidbodyMass;
 
             //add sphere collider or mesh collider
             if(colliderType == ColliderType.SphereCollider)
@@ -58,6 +52,12 @@ public class RopeScript : MonoBehaviour
                 collider.center = Vector3.zero;
                 collider.radius = ColliderRadius;
             }
+            //add sphere collider or mesh collider
+            if (colliderType == ColliderType.CapsuleCollider)
+            {
+                var collider = child.gameObject.AddComponent<CapsuleCollider>();
+                collider.center = Vector3.zero;
+            }
             else
             {
                 var collider = child.gameObject.AddComponent<MeshCollider>();
@@ -65,8 +65,16 @@ public class RopeScript : MonoBehaviour
             }
 
 
+
+            //rigidbody
+            var childRigidbody = child.gameObject.AddComponent<Rigidbody>();
+            childRigidbody.useGravity = Gravity;
+            childRigidbody.isKinematic = false;
+            //childRigidbody.freezeRotation = true;
+            childRigidbody.mass = RigidbodyMass;
+
             //DistanceJoint
-            if(joinType == Join.DistanceJoin)
+            if (joinType == Join.DistanceJoin)
             {
                 var joint = child.gameObject.AddComponent<DistanceJoin3D>();
                 joint.connectedRigidbody = parent;
@@ -79,18 +87,16 @@ public class RopeScript : MonoBehaviour
             {
                 var joint = child.gameObject.AddComponent<CharacterJoint>();
                 joint.connectedBody = parent.GetComponent<Rigidbody>();
-                SoftJointLimitSpring softJointLimit = joint.twistLimitSpring;
+                SoftJointLimitSpring softJointLimit = joint.swingLimitSpring;
                 softJointLimit.damper = JointDamper;
                 softJointLimit.spring = JointSpring;
-                childRigidbody.freezeRotation = false;
-
+                joint.swingLimitSpring = softJointLimit;
             }        
 
 
             //Colision Dection
             var collision = child.gameObject.AddComponent<CollisionScript>();
-            collision.ropeModel = ropeModel;
-
+            collision.ropeModel = this.gameObject;
             //add copy source
             CopySource.Add(child.transform);
             CopyDestination.Add(child);

@@ -35,26 +35,6 @@ public class SkinnedCollisionHelper : MonoBehaviour {
         }
     }
 
-    void GetBoneChildPosition(Transform parent)
-    {
-
-        for (int i = 0; i < parent.childCount; i++)
-        {
-            Transform bone = parent.GetChild(i);
-            if (GetRoundPosition(bone.position) != GetRoundPosition(bonesPositions[bone]))
-            {
-                bonesPositions[bone] = bone.position;
-                // UpdateCollider();
-                Ohohoh[] test = FindObjectsOfType<Ohohoh>();
-                foreach (Ohohoh item in test)
-                {
-                   // item.UpdateCollisionMesh();
-                }
-            }
-            GetBoneChildPosition(bone);
-        }
-    }
-
     Vector3 GetRoundPosition(Vector3 vector)
     {
         return new Vector3(Mathf.Round(vector.x), Mathf.Round(vector.y), Mathf.Round(vector.z));

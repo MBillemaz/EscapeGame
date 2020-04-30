@@ -2,29 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TropheesManager : MonoBehaviour {
+public class TropheesManager : Singleton<TropheesManager> {
 
 
-    public static List<TropheeInfo> Trophees = new List<TropheeInfo>();
+    [SerializeField] List<TropheeInfo> trophees;
 
-    // Use this for initialization
-    void Start () {
-       this.GetTrophees();
-        DontDestroyOnLoad(this);
-    }
 	
-
-    //Get all rewards
-    public List<TropheeInfo> GetTrophees()
+    public List<TropheeInfo> GetTropheesInfo()
     {
-        for (int i = 0; i < this.transform.childCount; i++)
-        {
-            GameObject child = this.transform.GetChild(i).gameObject;
-            Trophees.Add(child.GetComponent<Trophee>().tropheeInfo);
-        } 
-        return Trophees;
+        return trophees;
     }
 
+    public TropheeInfo GetTropheeByName(string name)
+    {
+        return trophees.Find(trophee => trophee.Name == name);
+    }
 
+    public TropheeInfo GetTropheeByLevel(string name)
+    {
+        return trophees.Find(trophee => trophee.Level == name);
+    }
 
+    public TropheeInfo GetTropheeByLevelNumber(int number)
+    {
+        return trophees.Find(trophee => trophee.LevelNumber == number);
+    }
 }

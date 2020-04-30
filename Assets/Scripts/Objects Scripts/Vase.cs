@@ -7,8 +7,9 @@ using Valve.VR.InteractionSystem;
 public class Vase : MonoBehaviour {
 
     // Use this for initialization
-    public GameObject fracturedVase;
-    public GameObject explosionEffect;
+    [SerializeField] GameObject fracturedVase;
+    [SerializeField] GameObject explosionEffect;
+    [SerializeField] float collisionForceBeforeBreaking = 3f;
     private bool hasCollide = false;
     void Start () {
 
@@ -21,7 +22,7 @@ public class Vase : MonoBehaviour {
     //Check if there is a collision with our object
     void OnCollisionEnter(Collision collision)
     {
-        if( !hasCollide)
+        if( !hasCollide && collision.relativeVelocity.magnitude > collisionForceBeforeBreaking)
         {
             // Instantitate explosion effect
             //Instantiate(explosionEffect, transform.position, Quaternion.identity);
@@ -38,7 +39,7 @@ public class Vase : MonoBehaviour {
             {
                 foreach (Rigidbody body in rigidbodies)
                 {
-                 // body.AddExplosionForce(1, transform.position, 1);
+                 body.AddExplosionForce(10, transform.position, 5);
                 }
             }
             // Destroy not broken object
@@ -52,25 +53,27 @@ public class Vase : MonoBehaviour {
 
         //Instantiate broken vase
         GameObject fracturedVaseObj = Instantiate(fracturedVase, transform.position, Quaternion.identity);
+        fracturedVaseObj.transform.parent = transform.parent;
         for (int i = 0; i < fracturedVaseObj.transform.childCount; i++)
         {
             Transform child = fracturedVaseObj.transform.GetChild(i);
-            child.transform.localScale = new Vector3(20, 20, 20);
 
-            // Each broken part can be taken by player
-            child.gameObject.AddComponent<Interactable>();
 
             // Add Rigibody
             Rigidbody rigibody = child.gameObject.AddComponent<Rigidbody>();
             rigibody.useGravity = true;
             rigibody.isKinematic = false;
-            rigibody.freezeRotation = true;
+            rigibody.freezeRotation = false;
             rigibody.mass = 1f;
 
 
             // Add Mesh collider
             var collider = child.gameObject.AddComponent<MeshCollider>();
             collider.convex = true;
+
+
+            // Each broken part can be taken by player
+            child.gameObject.AddComponent<Throwable>();
         }
 
         // Waiting for seconds
