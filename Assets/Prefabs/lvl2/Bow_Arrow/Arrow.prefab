@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114309642385892836}
   - component: {fileID: 65678489468055996}
   - component: {fileID: 54064510330271500}
+  - component: {fileID: 114992897500192712}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: projectile
@@ -1322,6 +1323,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3be917a80086a48b97933694257f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114992897500192712
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077021178280804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fefc109b674014b917ce0a86389dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutMaterial: {fileID: 0}
+  fill: 1
+  addRigibody: 0
 --- !u!135 &135077073258080388
 SphereCollider:
   m_ObjectHideFlags: 1
