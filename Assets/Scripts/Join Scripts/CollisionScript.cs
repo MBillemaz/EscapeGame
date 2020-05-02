@@ -45,6 +45,7 @@ public class CollisionScript : MonoBehaviour {
             AddChildren(rope.transform, rope);
         }
         StopCutting();
+        Destroy(newRope, 0.5f);
         yield return new WaitForSeconds(0f);
     }
 

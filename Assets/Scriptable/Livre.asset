@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Livre_Erudit
   Level: Level 2
-  IsLocked: 1
+  IsLocked: 0
   LevelNumber: 2
