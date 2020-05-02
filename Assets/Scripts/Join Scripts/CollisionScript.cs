@@ -8,36 +8,56 @@ public class CollisionScript : MonoBehaviour {
     void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.gameObject.GetComponent<Cutter>() && !Mesh_Cutter.currentlyCutting)
         {
-            GameObject newRope = Mesh_Cutter.Cut(this.gameObject, transform.position, transform.right,null, true, false);
+            StartCoroutine(CutRope());
+        }
+    }
+    IEnumerator CutRope()
+    {
+        GameObject newRope = Mesh_Cutter.Cut(this.gameObject, transform.position, transform.right, null, true, false);
+        if (newRope && newRope.GetComponent<MeshFilter>().sharedMesh.vertexCount > 0
+            )
+        {
+            Destroy(this.transform.GetComponent<Collider>());
+            CapsuleCollider collider = gameObject.AddComponent<CapsuleCollider>();
+            Rigidbody rigibody = newRope.AddComponent<Rigidbody>();
 
-            Rigidbody rigibody = CopyComponent<Rigidbody>(this.transform.GetComponent<Rigidbody>(), newRope);
+            GameObject rope = new GameObject("rope");
+            rope.transform.position = this.transform.position;
+            rope.transform.parent = ropeModel.transform.parent;
+            newRope.transform.parent = rope.transform;
 
-            if(transform.childCount > 0)
+            CollisionScript col = newRope.AddComponent<CollisionScript>();
+            col.ropeModel = rope;
+
+            if (transform.childCount > 0)
             {
                 Transform child = this.transform.GetChild(0);
-
-                CopyComponent<Collider>(this.transform.GetComponent<Collider>(), newRope);
+                newRope.AddComponent<CapsuleCollider>();
                 child.GetComponent<CharacterJoint>().connectedBody = rigibody;
                 child.parent = newRope.transform;
             }
-           
-            StopCutting();
-            newRope.transform.parent = ropeModel.transform.parent;
-            CollisionScript col = newRope.AddComponent<CollisionScript>();
-            col.ropeModel = newRope;
+
+            AddChildren(rope.transform, rope);
         }
+        StopCutting();
+        yield return new WaitForSeconds(0f);
     }
 
+
+    void AddChildren(Transform parent, GameObject rope)
+    {
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.transform.GetChild(i);
+            child.GetComponent<CollisionScript>().ropeModel = rope;
+            AddChildren(child, rope);
+        }
+    }
     T CopyComponent<T>(T original, GameObject destination) where T : Component
     {
         System.Type type = original.GetType();

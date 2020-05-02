@@ -1210,7 +1210,7 @@ MonoBehaviour:
   burnTime: 30
   ignitionDelay: 0
   ignitionSound: {fileID: 82675517979869192}
-  canSpreadFromThisSource: 0
+  canSpreadFromThisSource: 1
 --- !u!114 &114691835795664990
 MonoBehaviour:
   m_ObjectHideFlags: 1

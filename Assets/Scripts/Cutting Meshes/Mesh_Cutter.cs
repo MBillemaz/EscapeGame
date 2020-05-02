@@ -365,10 +365,12 @@ public class Mesh_Cutter
                 //new polygon started with this edge
                 polygone.Clear();
                 polygone.Add(_addedVertices[i]);
-                polygone.Add(_addedVertices[i + 1]);
-
                 vertices.Add(_addedVertices[i]);
-                vertices.Add(_addedVertices[i + 1]);
+                if (i + 1 < _addedVertices.Count)
+                {
+                    polygone.Add(_addedVertices[i + 1]);
+                    vertices.Add(_addedVertices[i + 1]);
+                }
 
                 EvaluatePairs(_addedVertices, vertices, polygone);
                 Fill(polygone, _plane, _leftMesh, _rightMesh, submeshCount);
