@@ -2,61 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TropheesManager : MonoBehaviour {
+public class TropheesManager : Singleton<TropheesManager> {
 
 
-    public static List<Trophee> Trophees = new List<Trophee>();
+    [SerializeField] List<TropheeInfo> trophees;
 
-    public GameObject dropPoint;
-
-    // Use this for initialization
-    void Start () {
-       this.GetTrophees();
-       this.GetUnlockedTrophees();
-        DontDestroyOnLoad(this);
-    }
 	
-
-    //Get all rewards
-    public List<Trophee> GetTrophees()
+    public List<TropheeInfo> GetTropheesInfo()
     {
-        for (int i = 0; i < this.transform.childCount; i++)
-        {
-            GameObject child = this.transform.GetChild(i).gameObject;
-            Trophees.Add(child.GetComponent<Trophee>());
-        } 
-        return Trophees;
+        return trophees;
     }
 
-    //
-    // Get unlock trophees
-    // If trophee is unlock, hide it in scene
-    //
-    public List<Trophee> GetUnlockedTrophees()
+    public TropheeInfo GetTropheeByName(string name)
     {
-        //unlock first level trophee
-        this.transform.GetChild(0).gameObject.GetComponent<Trophee>().IsLocked = false;
-        //Get all children of this gameobject
-        for (int i = 0; i < this.transform.childCount; i++)
-        {
-            GameObject child = this.transform.GetChild(i).gameObject;
-            Trophee trophee = child.GetComponent<Trophee>();
-            if (trophee)
-            {
-                if (trophee.IsLocked)
-                {
-                    child.SetActive(false);
-                }
-                else
-                {
-                    child.SetActive(true);
-                }
-            }
-
-        }
-        return Trophees;
+        return trophees.Find(trophee => trophee.Name == name);
     }
 
+    public TropheeInfo GetTropheeByLevel(string name)
+    {
+        return trophees.Find(trophee => trophee.Level == name);
+    }
 
-
+    public TropheeInfo GetTropheeByLevelNumber(int number)
+    {
+        return trophees.Find(trophee => trophee.LevelNumber == number);
+    }
 }

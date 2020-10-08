@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trophee: MonoBehaviour {
+public class Trophee : MonoBehaviour {
 
-    public string Name;
-    public string Level;
-    public bool IsLocked;
-    public int LevelNumber;
 
-    void Start()
+    public TropheeInfo tropheeInfo;
+
+    private void Update()
     {
-        this.Name = this.gameObject.name;
+        this.gameObject.SetActive(!tropheeInfo.IsLocked);
     }
-
 }

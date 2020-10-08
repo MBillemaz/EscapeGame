@@ -5,13 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Title.unity
+  - enabled: 0
+    path: Assets/Scenes/Presentation/Title.unity
     guid: 9cfad28674fd573499389e8c24d2953e
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: e5d5076fe5015754e8ce85cf25b40158
+    path: Assets/Scenes/Salle Du Temps/Menu Remaster.unity
+    guid: 42a38e7f92bee7144bd5e5cd5f09fff9
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
+    path: Assets/Scenes/Nv1/Level1.unity
     guid: db6df6790839a11479acaad4fbdcc61f
+  - enabled: 1
+    path: Assets/Scenes/Nv2/Level 2.unity
+    guid: aa08dd1466a5d2d4a8cbf9afcb7a5e7f
   m_configObjects: {}

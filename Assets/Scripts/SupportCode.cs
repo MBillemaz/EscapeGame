@@ -8,7 +8,7 @@ public class SupportCode : MonoBehaviour {
     private bool isCodeRight = false;
 
     private bool changeLoaded = false;
-    	
+
     public void UpdateCodeBool()
     {
         isCodeRight = true;
@@ -36,9 +36,13 @@ public class SupportCode : MonoBehaviour {
     {
         // Get active scene and unlock nex level trophee
         Scene scene = SceneManager.GetActiveScene();
-        Trophee trophee = TropheesManager.Trophees.Find(t => t.Level == scene.name);
-        Trophee nextLevelTrophee = TropheesManager.Trophees.Find(t => t.LevelNumber == (trophee.LevelNumber + 1));
-        nextLevelTrophee.IsLocked = false;
+        TropheeInfo trophee = TropheesManager.Instance.GetTropheeByLevel(scene.name);
+        TropheeInfo nextLevelTrophee = TropheesManager.Instance.GetTropheeByLevelNumber(trophee.LevelNumber + 1);
+        if(nextLevelTrophee)
+        {
+            nextLevelTrophee.IsLocked = false;
+        }
+
     }
 
     IEnumerator ChangeScene(string scene)
