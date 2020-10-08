@@ -12,7 +12,7 @@ public class SupportCode : MonoBehaviour {
     public void UpdateCodeBool()
     {
         isCodeRight = true;
-        
+       
         foreach (var child in gameObject.GetComponentsInChildren<TabletteSupport>())
         {
             if (!child.isValueCorrect)
@@ -23,9 +23,22 @@ public class SupportCode : MonoBehaviour {
     }
     
     private void CheckCode()
-    {
+    {    
         if (isCodeRight && !changeLoaded)
+        {
+            this.UnLockNextLevelTrophee();
             StartCoroutine("ChangeScene", "Menu");
+        }
+           
+    }
+
+    private void UnLockNextLevelTrophee()
+    {
+        // Get active scene and unlock nex level trophee
+        Scene scene = SceneManager.GetActiveScene();
+        Trophee trophee = TropheesManager.Trophees.Find(t => t.Level == scene.name);
+        Trophee nextLevelTrophee = TropheesManager.Trophees.Find(t => t.LevelNumber == (trophee.LevelNumber + 1));
+        nextLevelTrophee.IsLocked = false;
     }
 
     IEnumerator ChangeScene(string scene)

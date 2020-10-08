@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Socle_2 : MonoBehaviour {
+public class Socle_2 : MonoBehaviour
+{
 
     // Gestion de la masse
     Rigidbody n_rigidbody;
@@ -23,11 +24,12 @@ public class Socle_2 : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
+        /*if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
         {
-           
+            //TotalForce = 0;
         }
-        else
+        else*/
+        if (col.gameObject.name != "Pilier" && col.gameObject.name != "Pied") // AR Remise à neuf de la balance
         {
             ForceVariable = col.rigidbody.mass;
             TotalForce = ForceVariable + TotalForce;
@@ -36,15 +38,16 @@ public class Socle_2 : MonoBehaviour {
 
     void OnCollisionExit(Collision col)
     {
-        if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
+        /*if (col.gameObject.name == "Pilier" || col.gameObject.name == "Pied")
         {
-            //TotalForce = 0;
+           // TotalForce = 0;
         }
-        else
+        else*/
+        if (col.gameObject.name != "Pilier" && col.gameObject.name != "Pied") // AR Remise à neuf de la balance
         {
             ForceVariable = col.rigidbody.mass;
             TotalForce = TotalForce - ForceVariable;
         }
-    }
 
+    }
 }

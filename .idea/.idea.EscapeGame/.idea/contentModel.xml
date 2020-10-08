@@ -1,24 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Baptiste\.Rider2018.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Baptiste\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_EscapeGame.2142101803.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Baptiste\Documents\Workplace\unityWork\EscapeGame" t="IncludeRecursive">
-      <e p=".git\info\exclude" t="IncludeRecursive" />
+    <e p="C:\Users\BaptDu\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\BaptDu\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_EscapeGame.779637218.00" t="ExcludeRecursive" />
+    <e p="C:\Users\BaptDu\Desktop\Projets\Git\EscapeGame" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="Editor" t="Include">
-          <e p="CrossPlatformInput" t="Include">
-            <e p="CrossPlatformInputInitialize.cs" t="Include" />
+        <e p="Plugins" t="Include">
+          <e p="GitHub" t="Include">
+            <e p="Editor" t="Include">
+              <e p="credits.txt" t="Include" />
+              <e p="eula.txt" t="Include" />
+              <e p="ExtensionLoader.cs" t="Include" />
+              <e p="UnityAPIWrapper.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Prefabs" t="Include">
+          <e p="Prefabs_balance" t="Include">
+            <e p="script" t="Include">
+              <e p="Balance.cs" t="Include" />
+              <e p="Bonpoids.cs" t="Include" />
+              <e p="Miseazero.cs" t="Include" />
+              <e p="Position.cs" t="Include" />
+              <e p="Rope.cs" t="Include" />
+              <e p="Rope2.cs" t="Include" />
+              <e p="Rotation.cs" t="Include" />
+              <e p="UIAppear.cs" t="Include" />
+            </e>
           </e>
         </e>
         <e p="Scripts" t="Include">
-          <e p="ChangeSceneOnDrop.cs" t="Include" />
           <e p="ConfigMenuGeneral.cs" t="Include" />
+          <e p="fadeText.cs" t="Include" />
+          <e p="Footstep.cs" t="Include" />
+          <e p="GenerateTablette.cs" t="Include" />
+          <e p="HideImage.cs" t="Include" />
+          <e p="Join Scripts" t="Include">
+            <e p="DistanceJoint3D.cs" t="Include" />
+          </e>
+          <e p="Objects Scripts" t="Include">
+            <e p="RopeScript.cs" t="Include" />
+            <e p="Vase.cs" t="Include" />
+          </e>
+          <e p="Random_Sounds.cs" t="Include" />
+          <e p="RaycastEvent.cs" t="Include" />
+          <e p="RaycastInput.cs" t="Include" />
+          <e p="Shoot System" t="Include">
+            <e p="Arrow.cs" t="Include" />
+            <e p="ArrowManager.cs" t="Include" />
+            <e p="BowScript.cs" t="Include" />
+          </e>
+          <e p="SnapScripts" t="Include">
+            <e p="BusteDrop.cs" t="Include" />
+            <e p="ChangeSceneOnDrop.cs" t="Include" />
+            <e p="DropPoint.cs" t="Include" />
+            <e p="DropZone.cs" t="Include" />
+            <e p="snapActionInterface.cs" t="Include" />
+            <e p="SnapKeyAction.cs" t="Include" />
+          </e>
+          <e p="Socle_1.cs" t="Include" />
+          <e p="Socle_2.cs" t="Include" />
+          <e p="Sound_OneSound.cs" t="Include" />
+          <e p="Sound_OneTime.cs" t="Include" />
+          <e p="Sound_TwoSounds.cs" t="Include" />
+          <e p="SupportCode.cs" t="Include" />
+          <e p="Tablette.cs" t="Include" />
+          <e p="TabletteSupport.cs" t="Include" />
           <e p="TitleScreen" t="Include">
             <e p="ChangeScene.cs" t="Include" />
             <e p="frontOfCamera.cs" t="Include" />
+          </e>
+          <e p="Trophees" t="Include">
+            <e p="Trophee.cs" t="Include" />
+            <e p="TropheesManager.cs" t="Include" />
           </e>
         </e>
         <e p="SteamVR" t="Include">
@@ -381,12 +438,9 @@
         </e>
       </e>
       <e p="EscapeGame.sln" t="IncludeFlat" />
-      <e p="Library" t="ExcludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
-      <e p="temp" t="ExcludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
-      </e>
+      <e p="temp\bin" t="ExcludeRecursive" />
     </e>
   </component>
 </project>
