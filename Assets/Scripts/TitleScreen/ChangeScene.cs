@@ -12,10 +12,17 @@ public class ChangeScene : MonoBehaviour {
     public Hand hand;
     void Start () {
 
-        action.AddOnChangeListener(OnTriggerPressed, hand.handType);
+        //action.AddOnChangeListener(OnTriggerPressed, hand.handType);
     }
 
-    private void OnTriggerPressed(SteamVR_Action_In actionIn)
+    private void Update()
+    {
+        if (action.GetState(hand.handType))
+        {
+            OnTriggerPressed();
+        }
+    }
+    private void OnTriggerPressed()
     {
         Change();
     }
@@ -29,6 +36,6 @@ public class ChangeScene : MonoBehaviour {
 
     void OnDestroy()
     {
-        action.RemoveOnChangeListener(OnTriggerPressed, hand.handType);
+       // action.RemoveOnChangeListener(OnTriggerPressed, hand.handType);
     }
 }

@@ -14,7 +14,7 @@ public class RaycastInput : MonoBehaviour {
     private Vector3 initialViseurPos;
     void Start () {
         hand = GetComponent<Hand>();
-        action.AddOnChangeListener(OnTriggerPressed, hand.handType);
+        //action.AddOnChangeListener(OnTriggerPressed, hand.handType);
         initialViseurPos = viseur.transform.position;
 	}
 
@@ -33,9 +33,13 @@ public class RaycastInput : MonoBehaviour {
         {
             viseur.transform.position = initialViseurPos;
         }
+        if (action.GetState(hand.handType))
+        {
+            OnTriggerPressed();
+        }
     }
 
-    private void OnTriggerPressed(SteamVR_Action_In actionIn)
+    private void OnTriggerPressed()
     {
         if(rayCastObject)
         {
@@ -50,7 +54,7 @@ public class RaycastInput : MonoBehaviour {
 
     void OnDestroy()
     {
-        action.RemoveOnChangeListener(OnTriggerPressed, hand.handType);
+        //action.RemoveOnChangeListener(OnTriggerPressed, hand.handType);
     }
 
 }

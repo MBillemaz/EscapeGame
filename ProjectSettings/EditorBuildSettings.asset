@@ -20,4 +20,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Nv2/Level 2.unity
     guid: aa08dd1466a5d2d4a8cbf9afcb7a5e7f
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 7bebff007fd9a7a43a3edc57c512c4ff,
+      type: 2}
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: bd25837f748508a4a82028f8256c8fd4,
+      type: 2}
+    Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 8956a0bb082a8b14fa950b5f0d1d53d5,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5f224e60939d9bf48ba069464585866f,
+      type: 2}

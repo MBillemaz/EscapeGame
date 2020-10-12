@@ -1,4 +1,4 @@
-//======= Copyright (c) Valve Corporation, All rights reserved. ===============
+﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
 // Purpose: The object attached to the player's hand that spawns and fires the
 //			arrow
@@ -46,7 +46,7 @@ namespace Valve.VR.InteractionSystem
 		void Awake()
 		{
 			allowTeleport = GetComponent<AllowTeleportWhileAttachedToHand>();
-			allowTeleport.teleportAllowed = true;
+			//allowTeleport.teleportAllowed = true;
 			allowTeleport.overrideHoverLock = false;
 
 			arrowList = new List<GameObject>();

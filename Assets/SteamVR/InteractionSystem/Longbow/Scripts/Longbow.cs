@@ -66,7 +66,7 @@ namespace Valve.VR.InteractionSystem
 		public float drawOffset = 0.06f;
 
 		public LinearMapping bowDrawLinearMapping;
-        
+
 		private Vector3 lateUpdatePos;
 		private Quaternion lateUpdateRot;
 
@@ -82,16 +82,16 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void OnAttachedToHand( Hand attachedHand )
 		{
-            hand = attachedHand;
-        }
+			hand = attachedHand;
+		}
 
 
 		//-------------------------------------------------
 		private void HandAttachedUpdate( Hand hand )
 		{
 			// Reset transform since we cheated it right after getting poses on previous frame
-			transform.localPosition = Vector3.zero;
-			transform.localRotation = Quaternion.identity;
+			//transform.localPosition = Vector3.zero;
+			//transform.localRotation = Quaternion.identity;
 
 			// Update handedness guess
 			EvaluateHandedness();
@@ -337,7 +337,7 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		public void ReleaseNock() 
+		public void ReleaseNock()
 		{
 			// ArrowHand tells us to do this when we release the buttons when bow is nocked but not drawn far enough
 			nocked = false;
@@ -378,6 +378,11 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
+		private void OnDetachedFromHand( Hand hand )
+		{
+			Destroy( gameObject );
+		}
+
 
 		//-------------------------------------------------
 		void OnDestroy()

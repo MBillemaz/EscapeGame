@@ -1,0 +1,67 @@
+{
+  "actions": [
+    {
+      "name": "/actions/default/in/Move",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/default/in/Use",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/Teleport",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/GrabPinch",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/GrabGrip",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/Pose",
+      "type": "pose"
+    },
+    {
+      "name": "/actions/default/in/SkeletonLeftHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/left"
+    },
+    {
+      "name": "/actions/default/in/SkeletonRightHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/right"
+    },
+    {
+      "name": "/actions/default/out/Haptic",
+      "type": "vibration"
+    }
+  ],
+  "action_sets": [
+    {
+      "name": "/actions/default",
+      "usage": "single"
+    }
+  ],
+  "default_bindings": [
+    {
+      "controller_type": "vive_controller",
+      "binding_url": "bindings_vive_controller.json"
+    },
+    {
+      "controller_type": "oculus_touch",
+      "binding_url": "bindings_oculus_touch.json"
+    },
+    {
+      "controller_type": "knuckles",
+      "binding_url": "bindings_knuckles.json"
+    }
+  ],
+  "localization": [
+    {
+      "language_tag": "en_US"
+    }
+  ]
+}
